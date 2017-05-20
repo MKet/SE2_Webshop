@@ -6,9 +6,9 @@ namespace WebShopLibrary.Entities
 {
     public class Order
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string User { get; set; }
         public string DiscountCode { get; set; }
-        public int Price { get; set; }
+        public double Price { get; set; }
     }
 }
