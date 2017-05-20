@@ -135,12 +135,12 @@
             "main": "aurelia-testing",
             "env": "dev"
           },
-		  "jquery",
+          "jquery",
           {
             "name": "bootstrap",
             "path": "../node_modules/bootstrap/dist",
             "main": "js/bootstrap.min",
-            "deps": ["jquery"],
+            "deps": [ "jquery" ],
             "exports": "$",
             "resources": [
               "css/bootstrap.css"
@@ -148,6 +148,11 @@
           }
         ]
       }
-    ]
+    ],
+    "copyFiles": {
+      "node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2": "wwwroot/bootstrap/fonts",
+      "node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff": "wwwroot/bootstrap/fonts",
+      "node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf": "wwwroot/bootstrap/fonts"
+    }
   }
 }
