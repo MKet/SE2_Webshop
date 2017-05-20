@@ -4,7 +4,8 @@ using System.Text;
 
 namespace WebShopLibrary.Entities
 {
-    class Format
+    public class Format
     {
+        public string Text { get; set; }
     }
 }
