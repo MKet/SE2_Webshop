@@ -5,7 +5,7 @@ using WebShopLibrary.Entities;
 
 namespace WebShopLibrary.Repositories
 {
-    interface IProductRepository
+    public interface IProductRepository
     {
         void insert(Product product);
         IReadOnlyCollection<Product> GetProducts(int Skip, int Amount);
