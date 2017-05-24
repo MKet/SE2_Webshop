@@ -5,7 +5,7 @@ using WebShopLibrary.Services;
 
 namespace WebShopLibrary.Factories
 {
-    interface IServiceFactory
+    public interface IServiceFactory
     {
         UserService CreateUserService();
         OrderService CreateOrderService();

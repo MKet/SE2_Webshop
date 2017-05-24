@@ -6,7 +6,7 @@ using WebShopLibrary.Services;
 
 namespace WebShopLibrary.Factories
 {
-    class MSSQLServiceFactory : IServiceFactory
+    public class MSSQLServiceFactory : IServiceFactory
     {
         private string ConnectionString = @"Integrated Security=true; Database=EbookStore; Data Source=MARCO-LAPTOP"; 
         public CatalogService CreateCatalogService()

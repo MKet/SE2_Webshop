@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop_killerApp_SE2", "Webshop_killerApp_SE2\Webshop_killerApp_SE2.csproj", "{26A34E28-BA38-419B-90C0-DFB51887E88E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{71D55D00-C51E-42EE-BA37-8D1ED03AB027} = {71D55D00-C51E-42EE-BA37-8D1ED03AB027}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShopLibrary", "WebShopLibrary\WebShopLibrary.csproj", "{71D55D00-C51E-42EE-BA37-8D1ED03AB027}"
 EndProject
