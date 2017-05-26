@@ -3,11 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
 	<typescriptcompileblocked>true</typescriptcompileblocked>
-	<PreBuildEvent></PreBuildEvent>
+	<PreBuildEvent>au build</PreBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="resources\elements\" />
+    <Folder Include="resources\" />
+    <Folder Include="src\elements\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
@@ -20,6 +21,9 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebShopLibrary\WebShopLibrary.csproj" />
   </ItemGroup>
 
 </Project>
