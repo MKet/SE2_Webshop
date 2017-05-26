@@ -18,8 +18,8 @@ namespace Webshop_killerApp_SE2.Controllers
       this.service = service;
     }
 
-    [HttpGet("/{number}")]
-    public IReadOnlyCollection<Product> Get(int number) => service.GetPage(number);
+    [HttpPost("/{number}")]
+    public IReadOnlyCollection<Product> GetPage(int number) => service.GetPage(number);
 
     [HttpPost]
     public void Post([FromBody]string value)
