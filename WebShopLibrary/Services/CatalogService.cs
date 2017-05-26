@@ -19,7 +19,11 @@ namespace WebShopLibrary.Services
             this.categoryRepository = categoryRepository;
         }
 
-        public IReadOnlyCollection<Product> GetPage(int page) =>
-            productRepository.GetProducts(page * pageSize, pageSize);
+        public IReadOnlyCollection<Product> GetPage(int page)
+        {
+            if (page < 1)
+                throw new ArgumentException("Value has to be positive", nameof(page));
+            return productRepository.GetProducts(page - 1 * pageSize, pageSize);
+        }
     }
 }
