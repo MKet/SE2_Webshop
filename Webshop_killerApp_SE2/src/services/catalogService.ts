@@ -9,7 +9,11 @@ export class catalogService {
     }
 
     public async getPage(number: number): Promise<Product[]> {
-        let response: Response = await this.http.fetch('catalog/' + number.toString());
+        let response: Response = await this.http.fetch('catalog/products', {
+            body: json({
+                "Item1": 1
+            })
+        });
         return await response.json();
     }
 
