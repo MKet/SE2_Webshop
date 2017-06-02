@@ -38,6 +38,26 @@ namespace WebShopLibrary.Repositories
             return categories.AsReadOnly();
         }
 
+        public IReadOnlyCollection<Category> GetCategories()
+        {
+            var categories = new List<Category>();
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"SELECT *
+                                    FROM categories 
+                                    ORDER BY Name desc";
+
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                    while (reader.Read())
+                        categories.Add(Convert(reader));
+            }
+            return categories.AsReadOnly();
+        }
+
         public IReadOnlyCollection<Category> GetSubCategoriesOf(int Category, int Skip, int Amount)
         {
             var categories = new List<Category>();
@@ -61,6 +81,28 @@ namespace WebShopLibrary.Repositories
             }
             return categories.AsReadOnly();
         }
+
+        public IReadOnlyCollection<Category> GetSubCategoriesOf(int Category)
+        {
+            var categories = new List<Category>();
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"SELECT *
+                                    FROM products 
+                                    ORDER BY Name desc
+                                    WHERE SubCategoryOf = @Category";
+                command.Parameters.AddWithValue("@Category", Category);
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                    while (reader.Read())
+                        categories.Add(Convert(reader));
+            }
+            return categories.AsReadOnly();
+        }
+
 
         public void Insert(Category category)
         {

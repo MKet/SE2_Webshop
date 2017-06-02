@@ -19,11 +19,15 @@ namespace WebShopLibrary.Services
             this.categoryRepository = categoryRepository;
         }
 
+        public IReadOnlyCollection<Category> GetTopLevelCategories() => categoryRepository.GetCategories();
+
         public IReadOnlyCollection<Product> GetPage(int page)
         {
             if (page < 1)
                 throw new ArgumentException("Value has to be positive", nameof(page));
-            return productRepository.GetProducts(page - 1 * pageSize, pageSize);
+            return productRepository.GetProducts((page - 1) * pageSize, pageSize);
         }
+
+        public IReadOnlyCollection<Category> GetSubCategories(int ParentId) => categoryRepository.GetSubCategoriesOf(ParentId);
     }
 }

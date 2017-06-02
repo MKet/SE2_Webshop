@@ -8,7 +8,7 @@ using WebShopLibrary.Entities;
 
 namespace Webshop_killerApp_SE2.Controllers
 {
-  [Route("api/catalog/[controller]")]
+  [Route("api/catalog/")]
   public class CatalogController : Controller
   {
     readonly CatalogService service;
@@ -18,14 +18,13 @@ namespace Webshop_killerApp_SE2.Controllers
       this.service = service;
     }
 
-    [HttpPost("/{number}")]
-    public IReadOnlyCollection<Product> GetPage(int number) => service.GetPage(number);
+    [HttpPost("products")]
+    public IReadOnlyCollection<Product> GetPage([FromBody]Tuple<int> parameters) => service.GetPage(parameters.Item1);
 
-    [HttpPost]
-    public void Post([FromBody]string value)
-    {
-    }
+    [HttpPost("categories")]
+    public IReadOnlyCollection<Category> GetCategories() => service.GetTopLevelCategories();
 
-
+    [HttpPost("Subcategories")]
+    public IReadOnlyCollection<Category> GetCategories([FromBody]Tuple<int> parameters) => service.GetSubCategories(parameters.Item1);
   }
 }

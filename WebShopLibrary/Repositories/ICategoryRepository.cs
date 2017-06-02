@@ -10,5 +10,7 @@ namespace WebShopLibrary.Repositories
         void Insert(Category category);
         IReadOnlyCollection<Category> GetCategories(int Skip, int Amount);
         IReadOnlyCollection<Category> GetSubCategoriesOf(int Category, int Skip, int Amount);
+        IReadOnlyCollection<Category> GetCategories();
+        IReadOnlyCollection<Category> GetSubCategoriesOf(int parentId);
     }
 }
