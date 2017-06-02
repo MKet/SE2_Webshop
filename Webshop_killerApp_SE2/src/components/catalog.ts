@@ -1,6 +1,5 @@
 import { autoinject } from 'aurelia-framework';
 import { catalogService } from '../services/catalogService';
-import { HttpClient } from 'aurelia-fetch-client';
 import { Product } from '../entities/Product';
 
 @autoinject
