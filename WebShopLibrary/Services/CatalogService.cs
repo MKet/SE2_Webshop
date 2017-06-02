@@ -21,6 +21,13 @@ namespace WebShopLibrary.Services
 
         public IReadOnlyCollection<Category> GetTopLevelCategories() => categoryRepository.GetCategories();
 
+        public IReadOnlyCollection<Product> GetPage(int page, int category)
+        {
+            if (page < 1)
+                throw new ArgumentException("Value has to be positive", nameof(page));
+            return productRepository.GetProducts(category, (page - 1) * pageSize, pageSize);
+        }
+
         public IReadOnlyCollection<Product> GetPage(int page)
         {
             if (page < 1)

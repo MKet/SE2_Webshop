@@ -21,6 +21,9 @@ namespace Webshop_killerApp_SE2.Controllers
     [HttpPost("products")]
     public IReadOnlyCollection<Product> GetPage([FromBody]Tuple<int> parameters) => service.GetPage(parameters.Item1);
 
+    [HttpPost("products")]
+    public IReadOnlyCollection<Product> GetPage([FromBody]Tuple<int, int> parameters) => service.GetPage(parameters.Item1, parameters.Item2);
+
     [HttpPost("categories")]
     public IReadOnlyCollection<Category> GetCategories() => service.GetTopLevelCategories();
 
