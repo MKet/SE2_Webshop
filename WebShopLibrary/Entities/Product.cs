@@ -12,7 +12,7 @@ namespace WebShopLibrary.Entities
         public string Location { get; set; }
         
         public double Price { get; set; }
-        public int Category { get; set; }
+        public int? Category { get; set; }
         public bool Isvisible { get; set; }
         public string Author { get; set; }
         public string Discount { get; set; }

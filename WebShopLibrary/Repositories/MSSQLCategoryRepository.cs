@@ -33,7 +33,7 @@ namespace WebShopLibrary.Repositories
 
                 using (SqlDataReader reader = command.ExecuteReader())
                     while (reader.Read())
-                        categories.Add(Convert(reader));
+                        categories.Add(ConvertReader(reader));
             }
             return categories.AsReadOnly();
         }
@@ -53,7 +53,7 @@ namespace WebShopLibrary.Repositories
 
                 using (SqlDataReader reader = command.ExecuteReader())
                     while (reader.Read())
-                        categories.Add(Convert(reader));
+                        categories.Add(ConvertReader(reader));
             }
             return categories.AsReadOnly();
         }
@@ -77,7 +77,7 @@ namespace WebShopLibrary.Repositories
 
                 using (SqlDataReader reader = command.ExecuteReader())
                     while (reader.Read())
-                        categories.Add(Convert(reader));
+                        categories.Add(ConvertReader(reader));
             }
             return categories.AsReadOnly();
         }
@@ -94,11 +94,10 @@ namespace WebShopLibrary.Repositories
                                     ORDER BY Name desc
                                     WHERE SubCategoryOf = @Category";
                 command.Parameters.AddWithValue("@Category", Category);
-                connection.Open();
-
+                connection.Open(); 
                 using (SqlDataReader reader = command.ExecuteReader())
                     while (reader.Read())
-                        categories.Add(Convert(reader));
+                        categories.Add(ConvertReader(reader));
             }
             return categories.AsReadOnly();
         }
@@ -109,12 +108,12 @@ namespace WebShopLibrary.Repositories
             throw new NotImplementedException();
         }
 
-        private Category Convert(SqlDataReader reader)
+        private Category ConvertReader(SqlDataReader reader)
         {
             return new Category()
             {
                 Id = (int)reader["ID"],
-                SubCategoryOf = (int)reader["SubCategoryOf"],
+                SubCategoryOf = reader["SubCategoryOf"] is DBNull ? null : (int?)reader["SubCategoryOf"],
                 Name = reader["Name"].ToString(),
                 Text = reader["Text"].ToString(),
             };
