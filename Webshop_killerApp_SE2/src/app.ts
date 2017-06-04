@@ -17,7 +17,7 @@ export class App {
         config.map([
             { title: 'Home', route: ['', 'home'], name: 'home', moduleId: 'components/home', nav: true },
             { title: 'Catalog', route: 'catalog/', name: 'catalog', moduleId: 'components/catalog', nav: true },
-            { route: 'catalog/:number', name: 'catalog', moduleId: 'components/catalog' }
+            { route: 'catalog/:number', name: 'catalogNum', moduleId: 'components/catalog' }
         ]);
         config.mapUnknownRoutes('error-404');
     }

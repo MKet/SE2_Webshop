@@ -19,6 +19,18 @@ namespace WebShopLibrary.Services
             this.categoryRepository = categoryRepository;
         }
 
+        public int GetPageAmount()
+        {
+            int productAmount = productRepository.CountProducts();
+            return (int)Math.Ceiling((double)(productAmount / pageSize));
+        }
+
+        public int GetPageAmount(int category)
+        {
+            int productAmount = productRepository.CountProductsInCategory(category);
+            return (int)Math.Ceiling((double)(productAmount / pageSize));
+        }
+
         public IReadOnlyCollection<Category> GetTopLevelCategories() => categoryRepository.GetCategories();
 
         public IReadOnlyCollection<Product> GetPage(int page, int category)

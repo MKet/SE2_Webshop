@@ -7,6 +7,12 @@
         <div class="panel-body">${item.text}</div>
         <img src="${item.image}" class="img-thumbnail" alt="${item.name}" width="304" height="236">
       </div>
+      <ul class="pagination">
+        <li repeat.for="i of pageAmount">
+          <a route-href="route: catalogNum; params.bind: {number:i}"
+             click.delegate="refreshPage($i)">${i}</a>
+        </li>
+      </ul>
     </div>
       <div class="row col-md-3">
         <ul class="list-group">

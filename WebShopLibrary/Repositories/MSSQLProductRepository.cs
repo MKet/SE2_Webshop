@@ -16,6 +16,49 @@ namespace WebShopLibrary.Repositories
             ConnectionString = connectionString;
         }
 
+        public int CountProducts()
+        {
+            var products = new List<Product>();
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"SELECT count(id) as count
+                                    FROM products";
+
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    reader.Read();
+                    return (int)reader["count"];
+                }
+            }
+        }
+
+        public int CountProductsInCategory(int category)
+        {
+            var products = new List<Product>();
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"SELECT count(id) as count
+                                    FROM products 
+                                    WHERE Category = @category 
+                                    ORDER BY ID desc";
+
+                command.Parameters.AddWithValue("@category", category);
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    reader.Read();
+                    return (int)reader["count"];
+                }
+            }
+        }
+
         public Product GetProduct(int Id)
         {
             using (var connection = new SqlConnection(ConnectionString))
