@@ -21,14 +21,14 @@ namespace WebShopLibrary.Services
 
         public int GetPageAmount()
         {
-            int productAmount = productRepository.CountProducts();
-            return (int)Math.Ceiling((double)(productAmount / pageSize));
+            double productAmount = productRepository.CountProducts();
+            return (int)Math.Ceiling(productAmount / pageSize);
         }
 
         public int GetPageAmount(int category)
         {
-            int productAmount = productRepository.CountProductsInCategory(category);
-            return (int)Math.Ceiling((double)(productAmount / pageSize));
+            double productAmount = productRepository.CountProductsInCategory(category);
+            return (int)Math.Ceiling(productAmount / pageSize);
         }
 
         public IReadOnlyCollection<Category> GetTopLevelCategories() => categoryRepository.GetCategories();
