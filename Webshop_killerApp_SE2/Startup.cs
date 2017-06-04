@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System.IO;
+using Microsoft.IdentityModel.Tokens;
 using WebShopLibrary.Factories;
+using System.IO;
 
 namespace Webshop_killerApp_SE2
 {
@@ -31,6 +32,7 @@ namespace Webshop_killerApp_SE2
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddTransient(x => serviceFactory.CreateCatalogService());
+      services.AddTransient(x => serviceFactory.CreateAuthService());
       // Add framework services.
       services.AddMvc();
     }
@@ -40,6 +42,24 @@ namespace Webshop_killerApp_SE2
     {
       loggerFactory.AddConsole(Configuration.GetSection("Logging"));
       loggerFactory.AddDebug();
+
+      TokenValidationParameters tokenValidationParameters =
+        new TokenValidationParameters()
+        {
+          ValidAudience = "theAudience",
+          ValidIssuer = "theIssuer",
+          ValidateLifetime = true,
+          ValidateIssuer = true,
+          IssuerSigningKey = new SymmetricSecurityKey(new byte[32])
+        };
+
+      app.UseJwtBearerAuthentication(new JwtBearerOptions()
+      {
+        Audience = "theAudience",
+        AutomaticAuthenticate = true,
+        TokenValidationParameters = tokenValidationParameters
+      });
+
       // Route all unknown requests to app root
       app.Use(async (context, next) =>
       {

@@ -13,6 +13,8 @@ using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
+using WebShopLibrary.Services;
+using WebShopLibrary.Entities;
 
 namespace Webshop_killerApp_SE2.Controllers
 {
@@ -43,50 +45,28 @@ namespace Webshop_killerApp_SE2.Controllers
   [Route("api/[controller]/[action]")]
   public class AuthController : Controller
   {
+    private AuthService authService;
+
+    public AuthController(AuthService authService)
+    {
+      this.authService = authService;
+    }
 
     [HttpPost]
     public AccessToken Login([FromBody] UserCredentials credentials)
     {
       string username = credentials.username;
       string password = credentials.password;
-      if (username != password) throw new UnauthorizedAccessException();
 
-      if (username == "marwijn")
-      {
-        return CreateAccessToken("marwijn", new[] { "admin", "user" });
-      }
-      return CreateAccessToken(username, new[] { "admin", "user" });
-    }
+      User user = authService.Login(username, password);
 
-    [HttpPost]
-    public async Task<AccessToken> Google([FromBody] OpenIdToken token)
-    {
-      var openIdConfig = await OpenIdConnectConfiguration("https://accounts.google.com");
-      var claims = await GetOpenIdClaims(token, openIdConfig, "IZU-xYB1tK7yb5aB44D2EoJP");
-      var idClaim = GetIdClaim(claims);
-
-      if (idClaim.Value == "100554319379838513055")
-      {
-        return CreateAccessToken("google marwijn", new[] { "user", "admin" });
+      if (user != null) {
+        return CreateAccessToken(user.username, user.isAdmin);
       }
 
-      return null;
+      throw new UnauthorizedAccessException();
     }
 
-    [HttpPost]
-    public async Task<AccessToken> Live([FromBody] OpenIdToken token)
-    {
-      var openIdConfig = await OpenIdConnectConfiguration("https://login.live.com");
-      var claims = await GetOpenIdClaims(token, openIdConfig, "ev5dkWRA3MrMnqJdXwm7KxC");
-      var idClaim = GetIdClaim(claims);
-
-      if (idClaim.Value == "AAAAAAAAAAAAAAAAAAAAAMzUub7tQTCHc4vPncZqxLo")
-      {
-        return CreateAccessToken("hotmail marwijn", new[] { "user" });
-      }
-
-      return null;
-    }
 
     private static Claim GetIdClaim(ClaimsPrincipal claims)
     {
@@ -177,14 +157,14 @@ namespace Webshop_killerApp_SE2.Controllers
       return openIdConfig;
     }
 
-    private static AccessToken CreateAccessToken(string userId, string[] roles)
+    private static AccessToken CreateAccessToken(string userId, bool isAdmin)
     {
       var claims = new List<Claim>();
 
-      foreach (string role in roles)
-      {
-        claims.Add(new Claim("roles", role));
-      }
+      if (isAdmin)
+        claims.Add(new Claim("roles", "admin"));
+
+      claims.Add(new Claim("roles", "user"));
       claims.Add(new Claim("userid", userId));
 
       var signing = new SigningCredentials(new SymmetricSecurityKey(new byte[32]), SecurityAlgorithms.HmacSha256);
@@ -202,3 +182,4 @@ namespace Webshop_killerApp_SE2.Controllers
       return new AccessToken { access_token = encodedJwt };
     }
   }
+}
