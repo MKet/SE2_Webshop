@@ -17,7 +17,6 @@ export class Catalog {
 
     async attached() {
         this.categories = await this.catalogService.getTopLevelCategories();
-        await this.refreshPage(this.number)
     }
 
     async refreshPage(pageNumber: number) : Promise<void>{
@@ -27,8 +26,8 @@ export class Catalog {
         } else {
             page = await this.catalogService.getPageWithCategory(pageNumber, this.selectedCategory);
         }
-        this.products = page.Item1;
-        this.pageAmount = page.Item2;
+        this.products = page.item1;
+        this.pageAmount = page.item2;
     }
 
     async activate(params, routeConfig) {

@@ -10,7 +10,6 @@ export class catalogService {
     }
 
     public async getPage(number: number): Promise<PageResponse> {
-        console.log(`page: ${number}`);
         let response: Response = await this.http.fetch('catalog/products', {
             body: json({
                 "Item1": number
@@ -20,7 +19,6 @@ export class catalogService {
     }
 
     public async getPageWithCategory(number: number, category: number): Promise<PageResponse> {
-        console.log(`page: ${number}, category: ${category}`);
         let response: Response = await this.http.fetch('catalog/category/products', {
             body: json({
                 "Item1": number,
@@ -38,6 +36,6 @@ export class catalogService {
 }
 
 export class PageResponse {
-    Item1: Product[];
-    Item2: number;
+    item1: Product[];
+    item2: number;
 }
