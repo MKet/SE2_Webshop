@@ -36,5 +36,29 @@ namespace Webshop_Test
 
             Assert.AreEqual(list.Count, 3);
         }
+
+        [TestMethod]
+        public void SinglePageCountTest()
+        {
+            CatalogService TestObject = new CatalogService(new TestProductRepository(), new TestCategoryRepository(), 100);
+
+            Assert.AreEqual(TestObject.GetPageAmount(), 1);
+        }
+
+        [TestMethod]
+        public void PageCountTest()
+        {
+            CatalogService TestObject = new CatalogService(new TestProductRepository(), new TestCategoryRepository(), 2);
+
+            Assert.AreEqual(TestObject.GetPageAmount(), 2);
+        }
+
+        [TestMethod]
+        public void ExactPageCountTest()
+        {
+            CatalogService TestObject = new CatalogService(new TestProductRepository(), new TestCategoryRepository(), 3);
+
+            Assert.AreEqual(TestObject.GetPageAmount(), 1);
+        }
     }
 }

@@ -52,6 +52,10 @@ namespace Webshop_Test.TestRepositories
             }
         };
 
+        public int CountProducts() => list.Count;
+
+        public int CountProductsInCategory(int category) => list.Where(p => p.Category == category).Count();
+
         public Product GetProduct(int ID) => list.Find(p => p.Id == ID);
 
         public IReadOnlyCollection<Product> GetProducts(int Skip, int Amount)
