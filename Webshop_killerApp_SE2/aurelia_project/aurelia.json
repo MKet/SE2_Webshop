@@ -118,6 +118,7 @@
           "aurelia-task-queue",
           "aurelia-templating",
           "aurelia-templating-binding",
+		  "aurelia-fetch-client",
           "text",
           {
             "name": "aurelia-templating-resources",
@@ -134,9 +135,25 @@
             "path": "../node_modules/aurelia-testing/dist/amd",
             "main": "aurelia-testing",
             "env": "dev"
+          },
+          "jquery",
+          {
+            "name": "bootstrap",
+            "path": "../node_modules/bootstrap/dist",
+            "main": "js/bootstrap.min",
+            "deps": [ "jquery" ],
+            "exports": "$",
+            "resources": [
+              "css/bootstrap.css"
+            ]
           }
         ]
       }
-    ]
+    ],
+    "copyFiles": {
+      "node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2": "wwwroot/bootstrap/fonts",
+      "node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff": "wwwroot/bootstrap/fonts",
+      "node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf": "wwwroot/bootstrap/fonts"
+    }
   }
 }
