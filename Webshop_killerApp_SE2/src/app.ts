@@ -42,6 +42,10 @@ export class App {
         this.subscription.dispose();
     }
 
+    async logout() {
+        this.auth.logout();
+    }
+
     configureRouter(config: RouterConfiguration) : void {
         config.title = 'Aurelia';
         config.options.pushState = true;
@@ -49,7 +53,7 @@ export class App {
             { title: 'Home', route: ['', 'home'], name: 'home', moduleId: 'components/home', nav: true },
             { title: 'Catalog', route: 'catalog/', name: 'catalog', moduleId: 'components/catalog', nav: true },
             { title: 'Catalog', route: 'catalog/:number', name: 'catalogNum', moduleId: 'components/catalog' },
-            { title: 'Login', route: 'login', name: 'login', moduleId: 'components/login', nav: true }
+            { title: 'Login', route: 'login', name: 'login', moduleId: 'components/login' }
         ]);
         config.addPipelineStep('authorize', AuthorizeStep);
         config.mapUnknownRoutes('error-404');
