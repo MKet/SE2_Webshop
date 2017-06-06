@@ -8,7 +8,7 @@ namespace Webshop_Test.TestRepositories
 {
     class TestCategoryRepository : ICategoryRepository
     {
-        private static List<Category> list = new List<Category>()
+        private List<Category> list = new List<Category>()
         {
             new Category() {Id = 1, Name = "Test1", SubCategoryOf = null, Text = "this is a test class"},
             new Category() {Id = 2, Name = "Test2", SubCategoryOf = null, Text = "this is a test class"},

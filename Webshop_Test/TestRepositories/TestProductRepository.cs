@@ -9,7 +9,7 @@ namespace Webshop_Test.TestRepositories
 {
     class TestProductRepository : IProductRepository
     {
-        private static List<Product> list = new List<Product>()
+        private List<Product> list = new List<Product>()
         {
             new Product()
             {
