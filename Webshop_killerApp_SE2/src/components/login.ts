@@ -7,6 +7,8 @@ import { FetchConfig, AuthService } from 'aurelia-authentication';
 export class login {
     username: string;
     password: string;
+
+    message: string;
     constructor(private http: HttpClient, private auth: AuthService, private router: Router) { }
 
     async login() {
@@ -14,7 +16,9 @@ export class login {
         await this.auth.login({
             "username": this.username,
             "password": this.password
-            })
+        }).catch(Error => {
+            this.message = Error.response;
+        });
     }
 
     async logout() {
