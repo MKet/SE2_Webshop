@@ -34,6 +34,7 @@ export class App {
                 } else {
                     this.userId = null;
                 }
+                this.router.navigateToRoute('home');
             });
     }
 
@@ -48,7 +49,7 @@ export class App {
             { title: 'Home', route: ['', 'home'], name: 'home', moduleId: 'components/home', nav: true },
             { title: 'Catalog', route: 'catalog/', name: 'catalog', moduleId: 'components/catalog', nav: true },
             { title: 'Catalog', route: 'catalog/:number', name: 'catalogNum', moduleId: 'components/catalog' },
-            { title: 'Login', route: 'login', name: 'Login', moduleId: 'components/login', nav: true }
+            { title: 'Login', route: 'login', name: 'login', moduleId: 'components/login', nav: true }
         ]);
         config.addPipelineStep('authorize', AuthorizeStep);
         config.mapUnknownRoutes('error-404');
@@ -84,14 +85,13 @@ export class App {
 class AuthorizeStep {
     constructor(private authService: AuthService) { }
 
-    run(navigationInstruction: NavigationInstruction, next: Next): Promise <any> {
+    run(navigationInstruction: NavigationInstruction, next: Next): Promise<any> {
         if (navigationInstruction.getAllInstructions().some(i => i.config.auth)) {
-                let isLoggedIn = this.authService.isAuthenticated();
-    
-                    if (!isLoggedIn) {
-                            return next.cancel(new Redirect('login'));
-                        }
+            let isLoggedIn = this.authService.isAuthenticated();
+            if (!isLoggedIn) {
+                return next.cancel(new Redirect('login'));
             }
+        }
         return next();
     }
 }
