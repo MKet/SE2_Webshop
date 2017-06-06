@@ -53,7 +53,7 @@ namespace Webshop_killerApp_SE2.Controllers
     }
 
     [HttpPost]
-    public AccessToken Login([FromBody] UserCredentials credentials)
+    public IActionResult Login([FromBody] UserCredentials credentials)
     {
       string username = credentials.username;
       string password = credentials.password;
@@ -61,10 +61,10 @@ namespace Webshop_killerApp_SE2.Controllers
       User user = authService.Login(username, password);
 
       if (user != null) {
-        return CreateAccessToken(user.username, user.isAdmin);
+        return Ok(CreateAccessToken(user.username, user.isAdmin));
       }
 
-      throw new UnauthorizedAccessException();
+      return Unauthorized();
     }
 
 
