@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
 	<typescriptcompileblocked>true</typescriptcompileblocked>
-	<PreBuildEvent>au build</PreBuildEvent>
+	<PreBuildEvent></PreBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
