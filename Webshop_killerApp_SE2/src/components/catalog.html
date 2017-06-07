@@ -7,18 +7,20 @@
            click.delegate="refreshPage($i+1)">${i+1}</a>
       </li>
     </ul>
-    <div class="row col-md-9">
+    <div class="row col-md-12">
       <div repeat.for="item of products" class="panel panel-default product-panel col-md-3">
         <div class="panel-heading"><a route-href="route: product; params.bind: {id:item.id}">${item.name}</a></div>
         <div class="panel-body product-description">${item.text}</div>
         <img src="${item.image}" class="img-thumbnail" alt="${item.name}" width="304" height="236">
       </div>
     </div>
+    <!-- 
       <div class="row col-md-3">
         <ul class="list-group">
           <li repeat.for="item of categories" class="list-group-item">${item.name}</li>
         </ul>
       </div>
+    -->
     <ul class="pagination col-md-9">
       <li class="${i+1 == number ? 'active' : ''}" repeat.for="i of pageAmount">
         <a route-href="route: catalogNum; params.bind: {number:i+1}"
