@@ -125,6 +125,28 @@ namespace WebShopLibrary.Repositories
             return products.AsReadOnly();
         }
 
+        public IReadOnlyCollection<Review> GetReviews(int product)
+        {
+            var reviews = new List<Review>();
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"SELECT *, u.username
+                                    FROM reviews r
+                                    join users u
+                                    on r.[User] = u.id
+                                    where product = @product";
+                connection.Open();
+                command.Parameters.AddWithValue("@product", product);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                    while (reader.Read())
+                        reviews.Add(ConvertToReview(reader));
+            }
+            return reviews.AsReadOnly();
+        }
+
         public void insert(Product product)
         {
             throw new NotImplementedException();
@@ -144,6 +166,17 @@ namespace WebShopLibrary.Repositories
                 Category = (int)reader["Category"],
                 Isvisible = (bool)reader["Visible"],
                 Discount = reader["code"].ToString()
+            };
+        }
+
+        private Review ConvertToReview(SqlDataReader reader)
+        {
+            return new Review()
+            {
+                User = reader["username"].ToString(),
+                Product = (int)reader["Product"],
+                Rating = (int)reader["Rating"],
+                Text = reader["Text"].ToString(),
             };
         }
     }

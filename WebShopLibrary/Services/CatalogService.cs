@@ -51,5 +51,7 @@ namespace WebShopLibrary.Services
             productRepository.GetProduct(Id);
 
         public IReadOnlyCollection<Category> GetSubCategories(int ParentId) => categoryRepository.GetSubCategoriesOf(ParentId);
+
+        public IReadOnlyCollection<Review> GetReviews(int product) => productRepository.GetReviews(product);
     }
 }

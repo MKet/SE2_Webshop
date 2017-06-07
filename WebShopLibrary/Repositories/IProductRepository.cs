@@ -13,5 +13,7 @@ namespace WebShopLibrary.Repositories
         IReadOnlyCollection<Product> GetProducts(int Category, int Skip, int Amount);
         int CountProducts();
         int CountProductsInCategory(int category);
+        IReadOnlyCollection<Review> GetReviews(int product);
+
     }
 }
