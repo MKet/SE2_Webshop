@@ -19,9 +19,9 @@ namespace WebShopLibrary.Factories
             throw new NotImplementedException();
         }
 
-        public UserService CreateUserService()
+        public AuthService CreateAuthService()
         {
-            throw new NotImplementedException();
+            return new AuthService(new MSSQLUserRepository(ConnectionString));
         }
     }
 }

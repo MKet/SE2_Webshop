@@ -2,7 +2,7 @@
   <div class="container">
     <h1>Catalog</h1>
     <ul class="pagination col-md-9">
-      <li class="${i == number ? 'active' : ''}" repeat.for="i of pageAmount">
+      <li class="${i+1 == number ? 'active' : ''}" repeat.for="i of pageAmount">
         <a route-href="route: catalogNum; params.bind: {number:i+1}"
            click.delegate="refreshPage($i+1)">${i+1}</a>
       </li>
@@ -20,7 +20,7 @@
         </ul>
       </div>
     <ul class="pagination col-md-9">
-      <li class="${i == number ? 'active' : ''}" repeat.for="i of pageAmount">
+      <li class="${i+1 == number ? 'active' : ''}" repeat.for="i of pageAmount">
         <a route-href="route: catalogNum; params.bind: {number:i+1}"
            click.delegate="refreshPage($i+1)">${i+1}</a>
       </li>

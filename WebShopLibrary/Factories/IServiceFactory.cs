@@ -7,7 +7,7 @@ namespace WebShopLibrary.Factories
 {
     public interface IServiceFactory
     {
-        UserService CreateUserService();
+        AuthService CreateAuthService();
         OrderService CreateOrderService();
         CatalogService CreateCatalogService();
     }
