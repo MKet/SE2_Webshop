@@ -33,6 +33,10 @@ export class catalogService {
         return await response.json();
     }
 
+    public async getProduct(Id: number): Promise<Product> {
+        let response: Response = await this.http.fetch('product');
+        return await response.json();
+    }
 }
 
 export class PageResponse {
