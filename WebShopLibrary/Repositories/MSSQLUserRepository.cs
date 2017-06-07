@@ -34,7 +34,7 @@ namespace WebShopLibrary.Repositories
                     {
                         User user = Convert(reader);
                         // check credential for case sensitivity
-                        if (user.username == username && password == reader["password"].ToString())
+                        if (user.username == username && password == reader["password"].ToString().Trim())
                             return user;
                     }
             }
