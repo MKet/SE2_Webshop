@@ -10,5 +10,12 @@
       </div>
       <div class="col-md-12">${product.text}</div>
   </div>
+
+  <div class="row col-md-12">
+    <div repeat.for="item of reviews" class="panel panel-default col-md-12">
+      <div class="panel-heading">Name: ${item.user}, Rating: ${item.rating}</div>
+      <div class="col-md-12">${item.text}</div>
+    </div>
+  </div>
 </div>
 </template>
