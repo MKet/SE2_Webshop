@@ -71,6 +71,16 @@ namespace Webshop_Test.TestRepositories
                    .ToList()
                    .AsReadOnly();
 
-        public void insert(Product product) => list.Add(product);
+        public IReadOnlyCollection<Review> GetReviews(int product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Product product) => list.Add(product);
+
+        public void Insert(Review review)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
