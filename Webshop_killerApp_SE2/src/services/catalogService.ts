@@ -34,7 +34,11 @@ export class catalogService {
     }
 
     public async getProduct(Id: number): Promise<Product> {
-        let response: Response = await this.http.fetch('product');
+        let response: Response = await this.http.fetch('catalog/product', {
+            body: json({
+                "Item1": Id
+            })
+        });
         return await response.json();
     }
 }
