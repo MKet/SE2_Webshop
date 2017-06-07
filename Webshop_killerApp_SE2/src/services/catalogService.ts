@@ -33,6 +33,14 @@ export class catalogService {
         return await response.json();
     }
 
+    public async getProduct(Id: number): Promise<Product> {
+        let response: Response = await this.http.fetch('catalog/product', {
+            body: json({
+                "Item1": Id
+            })
+        });
+        return await response.json();
+    }
 }
 
 export class PageResponse {

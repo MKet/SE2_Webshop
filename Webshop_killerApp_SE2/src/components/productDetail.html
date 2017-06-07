@@ -1,0 +1,14 @@
+<template>
+<div class="container">
+  <h1>${product.name}</h1>
+  <div class="row col-md-12">
+      <img if.bind="product.image" src="${product.image}" class="img-thumbnail col-md-4" alt="${product.name}">
+      <div class="col-md-8">
+        <div>Price: ${product.price} euro</div>
+        <div>Author: ${product.author}</div>
+        <button class="btn">Order</button>
+      </div>
+      <div class="col-md-12">${product.text}</div>
+  </div>
+</div>
+</template>

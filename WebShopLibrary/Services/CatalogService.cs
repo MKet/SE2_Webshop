@@ -47,6 +47,9 @@ namespace WebShopLibrary.Services
             return productRepository.GetProducts((page - 1) * pageSize, pageSize);
         }
 
+        public Product GetProduct(int Id) => 
+            productRepository.GetProduct(Id);
+
         public IReadOnlyCollection<Category> GetSubCategories(int ParentId) => categoryRepository.GetSubCategoriesOf(ParentId);
     }
 }
