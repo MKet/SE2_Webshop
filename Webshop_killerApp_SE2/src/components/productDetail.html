@@ -16,6 +16,20 @@
       <div class="panel-heading">Name: ${item.user}, Rating: ${item.rating}</div>
       <div class="col-md-12">${item.text}</div>
     </div>
+
+    <div if.bind="auth.isAuthenticated()" class="panel panel-default col-md-12">
+      <form role="form">
+        <div class="panel-heading col-md-12">Name: ${postedReview.user}</div>
+        <select required class="col-md-12" value.bind="postedReview.rating">
+          <option model.bind="null">Choose a rating</option>
+          <option repeat.for="i of 100" model.bind="i+1">${i+1}</option>
+        </select>
+        <textarea required class="col-md-12" value.bind="postedReview.Text"></textarea>
+        <button class="btn" type="submit" click.delegate="postReview()">Post review</button>
+      </form>
+    </div>
+
+    <div if.bind="!auth.isAuthenticated()">You need to be logged in to post a review</div>
   </div>
 </div>
 </template>
