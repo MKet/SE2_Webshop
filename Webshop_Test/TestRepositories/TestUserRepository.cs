@@ -22,7 +22,7 @@ namespace Webshop_Test.TestRepositories
         };
 
         public User Authenthicate(string user, string password) => 
-            list.Where(U => U.user.username == user && U.password == password).FirstOrDefault()?.user;
+            list.Where(U => U.User.username == user && U.Password == password).FirstOrDefault()?.User;
 
         public void Insert(User user, string password) =>
             list.Add(new UserWithPass(user, password));
@@ -31,12 +31,12 @@ namespace Webshop_Test.TestRepositories
         {
             public UserWithPass(User user, string password)
             {
-                this.user = user;
-                this.password = password;
+                User = user;
+                Password = password;
             }
 
-            public User user { get; set; }
-            public string password { get; set; }
+            public User User { get; set; }
+            public string Password { get; set; }
         }
     }
 }

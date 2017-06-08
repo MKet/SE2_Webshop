@@ -147,9 +147,63 @@ namespace WebShopLibrary.Repositories
             return reviews.AsReadOnly();
         }
 
-        public void insert(Product product)
+        public bool Exists(Review review)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"SELECT 
+                                    FROM reviews r
+                                    where product = @product and User = @user";
+                connection.Open();
+                command.Parameters.AddWithValue("@product", review.Product);
+                command.Parameters.AddWithValue("@user", review.User);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                    return reader.HasRows;
+            }
+        }
+
+        public void Insert(Product product)
         {
             throw new NotImplementedException();
+        }
+
+        public void Insert(Review review)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"insert into reviews (User, Product, Rating, Text)
+                                        values(@User, @Product, @Rating, @Text)";
+                connection.Open();
+                command.Parameters.AddWithValue("@User", review.User);
+                command.Parameters.AddWithValue("@Product", review.Product);
+                command.Parameters.AddWithValue("@Rating", review.Rating);
+                command.Parameters.AddWithValue("@Text", review.Text);
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void Update(Review review)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"update reviews set User=@User, Product=@Product, Rating=@Rating, Text=@Text";
+
+                connection.Open();
+                command.Parameters.AddWithValue("@User", review.User);
+                command.Parameters.AddWithValue("@Product", review.Product);
+                command.Parameters.AddWithValue("@Rating", review.Rating);
+                command.Parameters.AddWithValue("@Text", review.Text);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         private Product Convert(SqlDataReader reader)
@@ -178,6 +232,27 @@ namespace WebShopLibrary.Repositories
                 Rating = (int)reader["Rating"],
                 Text = reader["Text"].ToString(),
             };
+        }
+
+        public Review GetReview(int user, int product)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"SELECT *
+                                    FROM reviews r
+                                    where product = @product and User = @user";
+                connection.Open();
+                command.Parameters.AddWithValue("@product", product);
+                command.Parameters.AddWithValue("@user", user);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                    while (reader.Read())
+                        return ConvertToReview(reader);
+            }
+
+            return null;
         }
     }
 }
