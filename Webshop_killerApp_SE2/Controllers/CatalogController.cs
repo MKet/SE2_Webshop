@@ -34,6 +34,9 @@ namespace Webshop_killerApp_SE2.Controllers
     [HttpPost("reviews")]
     public IReadOnlyCollection<Review> GetReviews([FromBody]Tuple<int> parameters) => service.GetReviews(parameters.Item1);
 
+    [HttpPost("reviews/post")]
+    public void PostReview([FromBody]Review review) => service.Post(review);
+
     [HttpPost("Subcategories")]
     public IReadOnlyCollection<Category> GetCategories([FromBody]Tuple<int> parameters) => service.GetSubCategories(parameters.Item1);
   }
