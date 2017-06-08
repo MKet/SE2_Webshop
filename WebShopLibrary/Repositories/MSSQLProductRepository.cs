@@ -147,18 +147,18 @@ namespace WebShopLibrary.Repositories
             return reviews.AsReadOnly();
         }
 
-        public bool Exists(Review review)
+        public bool Exists(Review review, int userId)
         {
             using (var connection = new SqlConnection(ConnectionString))
             using (var command = new SqlCommand())
             {
                 command.Connection = connection;
-                command.CommandText = @"SELECT 
-                                    FROM reviews r
-                                    where product = @product and User = @user";
+                command.CommandText = @"SELECT *
+                                    FROM reviews
+                                    where product = @product and [User] = @user";
                 connection.Open();
                 command.Parameters.AddWithValue("@product", review.Product);
-                command.Parameters.AddWithValue("@user", review.User);
+                command.Parameters.AddWithValue("@user", userId);
 
                 using (SqlDataReader reader = command.ExecuteReader())
                     return reader.HasRows;
@@ -170,16 +170,16 @@ namespace WebShopLibrary.Repositories
             throw new NotImplementedException();
         }
 
-        public void Insert(Review review)
+        public void Insert(Review review, int userId)
         {
             using (var connection = new SqlConnection(ConnectionString))
             using (var command = new SqlCommand())
             {
                 command.Connection = connection;
-                command.CommandText = @"insert into reviews (User, Product, Rating, Text)
+                command.CommandText = @"insert into reviews ([User], Product, Rating, Text)
                                         values(@User, @Product, @Rating, @Text)";
                 connection.Open();
-                command.Parameters.AddWithValue("@User", review.User);
+                command.Parameters.AddWithValue("@User", userId);
                 command.Parameters.AddWithValue("@Product", review.Product);
                 command.Parameters.AddWithValue("@Rating", review.Rating);
                 command.Parameters.AddWithValue("@Text", review.Text);
@@ -188,16 +188,17 @@ namespace WebShopLibrary.Repositories
             }
         }
 
-        public void Update(Review review)
+        public void Update(Review review, int userId)
         {
             using (var connection = new SqlConnection(ConnectionString))
             using (var command = new SqlCommand())
             {
                 command.Connection = connection;
-                command.CommandText = @"update reviews set User=@User, Product=@Product, Rating=@Rating, Text=@Text";
+                command.CommandText = @"update reviews set Rating=@Rating, Text=@Text
+                                        where [User] = @User and product = @Product";
 
                 connection.Open();
-                command.Parameters.AddWithValue("@User", review.User);
+                command.Parameters.AddWithValue("@User", userId);
                 command.Parameters.AddWithValue("@Product", review.Product);
                 command.Parameters.AddWithValue("@Rating", review.Rating);
                 command.Parameters.AddWithValue("@Text", review.Text);
@@ -253,6 +254,16 @@ namespace WebShopLibrary.Repositories
             }
 
             return null;
+        }
+
+        public void Insert(Review review, string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Review review, string username)
+        {
+            throw new NotImplementedException();
         }
     }
 }

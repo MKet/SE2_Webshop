@@ -93,7 +93,17 @@ namespace Webshop_Test.TestRepositories
             throw new NotImplementedException();
         }
 
+        public void Insert(Review review, int user)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Review review)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Review review, int user)
         {
             throw new NotImplementedException();
         }

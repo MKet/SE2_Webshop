@@ -41,6 +41,28 @@ namespace WebShopLibrary.Repositories
             return null;
         }
 
+        public User GetByName(string username)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"Select *  
+                                        FROM users 
+                                        where username = @user";
+
+                command.Parameters.AddWithValue("@user", username);
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                    if (reader.Read())
+                    {
+                        return Convert(reader);
+                    }
+            }
+            return null;
+        }
+
         public void Insert(User user, string password)
         {
             throw new NotImplementedException();

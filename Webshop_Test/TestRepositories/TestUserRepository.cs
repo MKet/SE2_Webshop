@@ -24,6 +24,11 @@ namespace Webshop_Test.TestRepositories
         public User Authenthicate(string user, string password) => 
             list.Where(U => U.User.username == user && U.Password == password).FirstOrDefault()?.User;
 
+        public User GetByName(string username)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Insert(User user, string password) =>
             list.Add(new UserWithPass(user, password));
 

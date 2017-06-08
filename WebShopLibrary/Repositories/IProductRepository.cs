@@ -14,9 +14,9 @@ namespace WebShopLibrary.Repositories
         int CountProducts();
         int CountProductsInCategory(int category);
         IReadOnlyCollection<Review> GetReviews(int product);
-        void Insert(Review review);
-        void Update(Review review);
-        bool Exists(Review review);
+        void Insert(Review review, int user);
+        void Update(Review review, int user);
+        bool Exists(Review review, int user);
         Review GetReview(int user, int product);
 
 
