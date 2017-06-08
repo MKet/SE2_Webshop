@@ -51,6 +51,10 @@ export class catalogService {
         });
         return await response.json();
     }
+
+    public async postReview(review: Review): Promise<void> {
+        await this.http.fetch('catalog/reviews/post', { body: json(review) });
+    }
 }
 
 export class PageResponse {

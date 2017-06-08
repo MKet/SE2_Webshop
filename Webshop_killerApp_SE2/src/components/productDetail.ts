@@ -19,17 +19,25 @@ export class ProductDetail {
     }
 
     async activate(params, routeConfig) {
-        console.info(params.id);
         this.product = await this.catalogService.getProduct(params.id);
         this.reviews = await this.catalogService.getReviews(params.id);
 
-        let userid = jwt_decode(this.auth.getAccessToken()).userid;
+        if (this.auth.isAuthenticated()) {
 
-        for (let item of this.reviews) {
-            if (item.user == userid) {
-                this.postedReview = item;
-                break;
+            let userid = jwt_decode(this.auth.getAccessToken()).userid;
+            this.postedReview.user = userid;
+            this.postedReview.product = params.id;
+            for (let item of this.reviews) {
+                if (item.user == userid) {
+                    this.postedReview = item;
+                    break;
+                }
             }
         }
+    }
+
+    async postReview() {
+        await this.catalogService.postReview(this.postedReview);
+        this.reviews = await this.catalogService.getReviews(this.product.id);
     }
 }
