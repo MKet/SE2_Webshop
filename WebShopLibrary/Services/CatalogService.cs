@@ -11,12 +11,14 @@ namespace WebShopLibrary.Services
         private int pageSize;
         private IProductRepository productRepository;
         private ICategoryRepository categoryRepository;
+        private IUserRepositoy userRepository;
 
-        public CatalogService(IProductRepository productRepository, ICategoryRepository categoryRepository, int pageSize = 30)
+        public CatalogService(IProductRepository productRepository, ICategoryRepository categoryRepository, IUserRepositoy userRepository, int pageSize = 30)
         {
             this.pageSize = pageSize;
             this.productRepository = productRepository;
             this.categoryRepository = categoryRepository;
+            this.userRepository = userRepository;
         }
 
         public int GetPageAmount()
@@ -51,5 +53,16 @@ namespace WebShopLibrary.Services
             productRepository.GetProduct(Id);
 
         public IReadOnlyCollection<Category> GetSubCategories(int ParentId) => categoryRepository.GetSubCategoriesOf(ParentId);
+
+        public IReadOnlyCollection<Review> GetReviews(int product) => productRepository.GetReviews(product);
+
+        public void Post(Review review)
+        {
+            int userId = userRepository.GetByName(review.User).Id;
+            if (productRepository.Exists(review, userId))
+                productRepository.Update(review, userId);
+            else
+                productRepository.Insert(review, userId);
+        }
     }
 }

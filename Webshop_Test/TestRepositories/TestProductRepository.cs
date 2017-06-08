@@ -56,6 +56,11 @@ namespace Webshop_Test.TestRepositories
 
         public int CountProductsInCategory(int category) => list.Where(p => p.Category == category).Count();
 
+        public bool Exists(Review review)
+        {
+            throw new NotImplementedException();
+        }
+
         public Product GetProduct(int ID) => list.Find(p => p.Id == ID);
 
         public IReadOnlyCollection<Product> GetProducts(int Skip, int Amount)
@@ -71,6 +76,36 @@ namespace Webshop_Test.TestRepositories
                    .ToList()
                    .AsReadOnly();
 
-        public void insert(Product product) => list.Add(product);
+        public Review GetReview(int user, int product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IReadOnlyCollection<Review> GetReviews(int product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Product product) => list.Add(product);
+
+        public void Insert(Review review)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Review review, int user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Review review)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Review review, int user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

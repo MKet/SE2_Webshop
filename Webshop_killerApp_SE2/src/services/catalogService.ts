@@ -2,6 +2,7 @@
 import { autoinject } from 'aurelia-framework';
 import { Category } from '../entities/Category';
 import { Product } from '../entities/Product';
+import { Review } from '../entities/Review';
 
 @autoinject
 export class catalogService {
@@ -40,6 +41,19 @@ export class catalogService {
             })
         });
         return await response.json();
+    }
+
+    public async getReviews(Id: number): Promise<Review[]> {
+        let response: Response = await this.http.fetch('catalog/reviews', {
+            body: json({
+                "Item1": Id
+            })
+        });
+        return await response.json();
+    }
+
+    public async postReview(review: Review): Promise<void> {
+        await this.http.fetch('catalog/reviews/post', { body: json(review) });
     }
 }
 

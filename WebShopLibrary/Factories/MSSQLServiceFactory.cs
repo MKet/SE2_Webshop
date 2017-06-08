@@ -11,7 +11,7 @@ namespace WebShopLibrary.Factories
         private string ConnectionString = @"Integrated Security=true; Database=EbookStore; Data Source=MARCO-LAPTOP"; 
         public CatalogService CreateCatalogService()
         {
-            return new CatalogService(new MSSQLProductRepository(ConnectionString), new MSSQLCategoryRepository(ConnectionString));
+            return new CatalogService(new MSSQLProductRepository(ConnectionString), new MSSQLCategoryRepository(ConnectionString), new MSSQLUserRepository(ConnectionString));
         }
 
         public OrderService CreateOrderService()

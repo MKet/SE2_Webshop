@@ -9,5 +9,7 @@ namespace WebShopLibrary.Repositories
     {
         void Insert(User user, string password);
         User Authenthicate(string user, string password);
+
+        User GetByName(string username);
     }
 }

@@ -7,11 +7,18 @@ namespace WebShopLibrary.Repositories
 {
     public interface IProductRepository
     {
-        void insert(Product product);
+        void Insert(Product product);
         IReadOnlyCollection<Product> GetProducts(int Skip, int Amount);
         Product GetProduct(int ID);
         IReadOnlyCollection<Product> GetProducts(int Category, int Skip, int Amount);
         int CountProducts();
         int CountProductsInCategory(int category);
+        IReadOnlyCollection<Review> GetReviews(int product);
+        void Insert(Review review, int user);
+        void Update(Review review, int user);
+        bool Exists(Review review, int user);
+        Review GetReview(int user, int product);
+
+
     }
 }
