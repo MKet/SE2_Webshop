@@ -5,11 +5,10 @@ using WebShopLibrary.Entities;
 
 namespace WebShopLibrary.Repositories
 {
-    interface IOrderRepository
+    public interface IOrderRepository
     {
-        void Insert(Order order);
+        void Insert(int user, string discount, IEnumerable<int> products);
         IReadOnlyCollection<Order> GetOrders(int Product, int Skip, int Amount);
-
         IReadOnlyCollection<Order> GetOrders(string User, int Skip, int Amount);
     }
 }
