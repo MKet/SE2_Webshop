@@ -16,7 +16,7 @@ namespace WebShopLibrary.Factories
 
         public OrderService CreateOrderService()
         {
-            throw new NotImplementedException();
+            return new OrderService(new MSSQLOrderRepository(ConnectionString));
         }
 
         public AuthService CreateAuthService()

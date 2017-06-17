@@ -1,34 +1,35 @@
 <template>
+  <require from="../elements/shopping-cart"></require>
+  <div class="col-md-2 sticky-top">
+    <shopping-cart></shopping-cart>
+  </div>
 <div class="container">
   <h1>${product.name}</h1>
   <div class="row col-md-12">
       <img if.bind="product.image" src="${product.image}" class="img-thumbnail col-md-4" alt="${product.name}">
       <div class="col-md-8">
-        <div>Price: ${product.price} euro</div>
+        <div>Price: &euro;${product.price}</div>
         <div>Author: ${product.author}</div>
-        <button class="btn">Order</button>
+        <button click.delegate="addToCart()" class="btn">Add to cart</button>
       </div>
       <div class="col-md-12">${product.text}</div>
   </div>
-
   <div class="row col-md-12">
     <div repeat.for="item of reviews" class="panel panel-default col-md-12">
       <div class="panel-heading">Name: ${item.user}, Rating: ${item.rating}</div>
       <div class="col-md-12">${item.text}</div>
     </div>
-
     <div if.bind="auth.isAuthenticated()" class="panel panel-default col-md-12">
-      <form role="form">
+      <form role="form" submit.delegate="postReview()">
         <div class="panel-heading col-md-12">Name: ${postedReview.user}</div>
         <select required class="col-md-12" value.bind="postedReview.rating">
           <option model.bind="null">Choose a rating</option>
           <option repeat.for="i of 100" model.bind="i+1">${i+1}</option>
         </select>
         <textarea required class="col-md-12" value.bind="postedReview.Text"></textarea>
-        <button class="btn" type="submit" click.delegate="postReview()">Post review</button>
+        <button class="btn" type="submit">Post review</button>
       </form>
     </div>
-
     <div if.bind="!auth.isAuthenticated()">You need to be logged in to post a review</div>
   </div>
 </div>

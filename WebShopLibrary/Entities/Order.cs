@@ -10,5 +10,6 @@ namespace WebShopLibrary.Entities
         public string User { get; set; }
         public string DiscountCode { get; set; }
         public double Price { get; set; }
+        public DateTime DateOrdered { get; set; }
     }
 }
