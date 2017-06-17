@@ -66,6 +66,12 @@ namespace Webshop_killerApp_SE2.Controllers
 
       return Unauthorized();
     }
+    
+    [HttpPost]
+    public void Register([FromBody]Tuple<User, string> accountInfo)
+    {
+      authService.Register(accountInfo.Item1, accountInfo.Item2);
+    }
 
 
     private static Claim GetIdClaim(ClaimsPrincipal claims)

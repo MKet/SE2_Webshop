@@ -18,5 +18,8 @@ namespace WebShopLibrary.Services
 
         public User Login(string username, string password) =>
             userRepository.Authenthicate(username, password);
+
+        public bool Register(User user, string password) =>
+            userRepository.Insert(user, password) == 1;
     }
 }
