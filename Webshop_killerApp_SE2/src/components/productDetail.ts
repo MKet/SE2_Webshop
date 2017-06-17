@@ -1,6 +1,7 @@
 import { autoinject } from 'aurelia-framework';
 import { AuthService } from 'aurelia-authentication';
 import { catalogService } from '../services/catalogService';
+import { CartService } from '../services/CartService';
 import { Product } from '../entities/Product';
 import { Review } from '../entities/Review';
 import * as jwt_decode from 'jwt-decode';
@@ -10,10 +11,9 @@ export class ProductDetail {
 
     private product: Product;
     private reviews: Review[];
+    private postedReview: Review;
 
-    private postedReview: Review
-
-    constructor(private catalogService: catalogService, private auth: AuthService)
+    constructor(private catalogService: catalogService, private auth: AuthService, private cartService: CartService)
     {
         this.postedReview = new Review();
     }
@@ -34,6 +34,10 @@ export class ProductDetail {
                 }
             }
         }
+    }
+
+    async addToCart() {
+        await this.cartService.addProduct(this.product);
     }
 
     async postReview() {
