@@ -18,7 +18,6 @@
     "Webshop_killerApp_SE2": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
