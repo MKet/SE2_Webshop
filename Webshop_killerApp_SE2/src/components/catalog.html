@@ -8,11 +8,7 @@
       </li>
     </ul>
     <div class="row col-md-12">
-      <div repeat.for="item of products" class="panel panel-default product-panel col-md-3">
-        <div class="panel-heading"><a route-href="route: product; params.bind: {id:item.id}">${item.name}</a></div>
-        <div class="panel-body product-description">${item.text}</div>
-        <img src="${item.image}" class="img-thumbnail" alt="${item.name}" width="304" height="236">
-      </div>
+      <product-item value.bind="item" repeat.for="item of products"></product-item>
     </div>
     <!-- 
       <div class="row col-md-3">

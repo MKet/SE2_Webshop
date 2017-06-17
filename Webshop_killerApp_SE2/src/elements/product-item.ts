@@ -1,7 +1,7 @@
 import {bindable} from 'aurelia-framework';
 
 export class ProductItem {
-  @bindable product;
+  @bindable value;
 
   valueChanged(newValue, oldValue) {
 
