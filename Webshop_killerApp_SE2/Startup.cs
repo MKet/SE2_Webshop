@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using WebShopLibrary.Factories;
 using System.IO;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Webshop_killerApp_SE2
 {
@@ -35,6 +36,18 @@ namespace Webshop_killerApp_SE2
       services.AddTransient(x => serviceFactory.CreateAuthService());
       // Add framework services.
       services.AddMvc();
+      services.AddSwaggerGen(options =>
+      {
+        options.SwaggerDoc("v1",
+          new Info
+          {
+            Title = "Todo API",
+            Version = "v1",
+            Description = "Todo Api description",
+            TermsOfService = "None"
+          }
+        );
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,6 +90,15 @@ namespace Webshop_killerApp_SE2
       app.UseDefaultFiles();
       app.UseStaticFiles();
       app.UseMvc();
+      app.UseSwagger(c =>
+      {
+        c.PreSerializeFilters.Add((swagger, httpReq) => swagger.Host = httpReq.Host.Value);
+      });
+
+      app.UseSwaggerUI(c =>
+      {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
+      });
     }
   }
 }
