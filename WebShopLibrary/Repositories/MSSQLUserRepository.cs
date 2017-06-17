@@ -78,7 +78,7 @@ namespace WebShopLibrary.Repositories
                                        (@username
                                        ,@email
                                        ,@password
-                                       ,@admin";
+                                       ,@admin)";
 
                 command.Parameters.AddWithValue("@username", user.username);
                 command.Parameters.AddWithValue("@email", user.email);
