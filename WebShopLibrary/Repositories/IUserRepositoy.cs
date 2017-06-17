@@ -7,7 +7,7 @@ namespace WebShopLibrary.Repositories
 {
     public interface IUserRepositoy
     {
-        void Insert(User user, string password);
+        int Insert(User user, string password);
         User Authenthicate(string user, string password);
 
         User GetByName(string username);
