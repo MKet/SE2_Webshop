@@ -9,7 +9,7 @@ export class UserService {
     }
 
     public async Register(user: User, password: string): Promise<void> {
-        await this.http.fetch('catalog/reviews/post', {
+        await this.http.fetch('/Auth/Register', {
             body: json({
                 "item1": user,
                 "item2": password
