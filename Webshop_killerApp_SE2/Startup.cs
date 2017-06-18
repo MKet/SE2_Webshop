@@ -26,7 +26,7 @@ namespace Webshop_killerApp_SE2
           .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
           .AddEnvironmentVariables();
       Configuration = builder.Build();
-      serviceFactory = new MSSQLServiceFactory(Configuration["ConnectionStrings:WebshopDatabase"]);
+      serviceFactory = new MSSQLServiceFactory(Configuration.GetConnectionString("WebshopDatabase"));
     }
 
     public IConfigurationRoot Configuration { get; }
