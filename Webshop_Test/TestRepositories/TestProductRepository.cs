@@ -61,6 +61,11 @@ namespace Webshop_Test.TestRepositories
             throw new NotImplementedException();
         }
 
+        public bool Exists(Review review, int user)
+        {
+            throw new NotImplementedException();
+        }
+
         public Product GetProduct(int ID) => list.Find(p => p.Id == ID);
 
         public IReadOnlyCollection<Product> GetProducts(int Skip, int Amount)
