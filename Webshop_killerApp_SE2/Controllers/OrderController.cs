@@ -19,12 +19,12 @@ namespace Webshop_killerApp_SE2.Controllers
     }
 
     [HttpPost("add")]
-    private void AddOrder([FromBody] Tuple<int, string, List<Product>> parameters) =>
+    public void AddOrder([FromBody] Tuple<int, string, List<Product>> parameters) =>
       orderService.AddOrder(parameters.Item1, parameters.Item2, parameters.Item3);
 
 
     [HttpPost("products")]
-    private void GetOrderedProducts([FromBody] Tuple<int> parameters) =>
+    public IReadOnlyCollection<Product> GetOrderedProducts([FromBody] Tuple<int> parameters) =>
       orderService.GetOrderedProduct(parameters.Item1);
   }
 }
