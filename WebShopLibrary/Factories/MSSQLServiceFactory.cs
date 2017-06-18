@@ -22,7 +22,7 @@ namespace WebShopLibrary.Factories
 
         public OrderService CreateOrderService()
         {
-            return new OrderService(new MSSQLOrderRepository(ConnectionString));
+            return new OrderService(new MSSQLOrderRepository(ConnectionString), new MSSQLProductRepository(ConnectionString));
         }
 
         public AuthService CreateAuthService()

@@ -10,16 +10,20 @@ namespace WebShopLibrary.Services
     public class OrderService
     {
         IOrderRepository orderRepo;
+        IProductRepository productRepo;
 
-        public OrderService(IOrderRepository orderRepo)
+        public OrderService(IOrderRepository orderRepo, IProductRepository productRepo)
         {
             this.orderRepo = orderRepo;
+            this.productRepo = productRepo;
         }
 
-        public void AddOrder(int UserId, string discount, List<Product> products)
-        {
+        public void AddOrder(int UserId, string discount, List<Product> products) =>
             orderRepo.Insert(UserId, discount, from p in products
                                                select p.Id);
-        }
+
+        public IReadOnlyCollection<Product> GetOrderedProduct(int User) =>
+            productRepo.GetOrderedProducts(User);
+
     }
 }

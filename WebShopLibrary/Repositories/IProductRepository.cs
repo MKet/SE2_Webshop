@@ -18,7 +18,7 @@ namespace WebShopLibrary.Repositories
         void Update(Review review, int user);
         bool Exists(Review review, int user);
         Review GetReview(int user, int product);
-
-
+        IReadOnlyCollection<Product> GetOrderedProducts(int User);
+        
     }
 }

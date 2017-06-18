@@ -1,0 +1,19 @@
+<template>
+  <div class="panel panel-default">
+    <div class="panel-heading">Ordered products:</div>
+    <div class="panel-body table-responsive" if.bind="!isEmpty">
+      <table class="table table-striped">
+        <tr repeat.for="item of products">
+          <td>${item.name}</td>
+          <td>&euro;${item.price}</td>
+          <td> ${item.author}</td>
+          <td><button class="btn">Download</button></td>
+        </tr>
+      </table>
+      <button class="btn">Download all</button>
+    </div>
+    <div if.bind="isEmpty">
+      The cart is empty :(
+    </div>
+  </div>
+</template>

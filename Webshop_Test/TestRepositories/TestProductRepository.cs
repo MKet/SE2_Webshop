@@ -112,5 +112,10 @@ namespace Webshop_Test.TestRepositories
         {
             throw new NotImplementedException();
         }
+
+        public IReadOnlyCollection<Product> GetOrderedProducts(int User)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
