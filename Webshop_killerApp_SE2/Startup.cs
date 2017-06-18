@@ -43,12 +43,13 @@ namespace Webshop_killerApp_SE2
         options.SwaggerDoc("v1",
           new Info
           {
-            Title = "Todo API",
+            Title = "Webshop API API",
             Version = "v1",
-            Description = "Todo Api description",
+            Description = "Webshop",
             TermsOfService = "None"
           }
         );
+        options.DocInclusionPredicate((docname, api) => true);
       });
     }
 
@@ -61,8 +62,8 @@ namespace Webshop_killerApp_SE2
       TokenValidationParameters tokenValidationParameters =
         new TokenValidationParameters()
         {
-          ValidAudience = "theAudience",
-          ValidIssuer = "theIssuer",
+          ValidAudience = "TZZ04h^dQ!jpRH0m0Z#*",
+          ValidIssuer = "nNT4M3H3@NgdMA&s0zTh",
           ValidateLifetime = true,
           ValidateIssuer = true,
           IssuerSigningKey = new SymmetricSecurityKey(new byte[32])
@@ -70,7 +71,7 @@ namespace Webshop_killerApp_SE2
 
       app.UseJwtBearerAuthentication(new JwtBearerOptions()
       {
-        Audience = "theAudience",
+        Audience = "TZZ04h^dQ!jpRH0m0Z#*",
         AutomaticAuthenticate = true,
         TokenValidationParameters = tokenValidationParameters
       });
@@ -80,13 +81,13 @@ namespace Webshop_killerApp_SE2
       {
         await next();
 
-              // If there's no available file and the request doesn't contain an extension, we're probably trying to access a page.
-              // Rewrite request to use app root
-              if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+        // If there's no available file and the request doesn't contain an extension, we're probably trying to access a page.
+        // Rewrite request to use app root
+        if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
         {
           context.Request.Path = "/index.html";
           context.Response.StatusCode = 200; // Make sure we update the status code, otherwise it returns 404
-                await next();
+          await next();
         }
       });
       app.UseDefaultFiles();
