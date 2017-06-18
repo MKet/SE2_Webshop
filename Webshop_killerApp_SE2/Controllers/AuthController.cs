@@ -32,7 +32,7 @@ namespace Webshop_killerApp_SE2.Controllers
 
   public class OpenIdToken
   {
-    public string clientId { get; set; }
+    public int clientId { get; set; }
     public string redirectUri { get; set; }
     public string state { get; set; }
     public string code { get; set; }
@@ -61,7 +61,7 @@ namespace Webshop_killerApp_SE2.Controllers
       User user = authService.Login(username, password);
 
       if (user != null) {
-        return Ok(CreateAccessToken(user.username, user.isAdmin));
+        return Ok(CreateAccessToken(user.Id, user.isAdmin));
       }
 
       return Unauthorized();
@@ -87,7 +87,7 @@ namespace Webshop_killerApp_SE2.Controllers
         var content = new FormUrlEncodedContent(new[]
         {
           new KeyValuePair<string, string>("code", token.code),
-          new KeyValuePair<string, string>("client_id", token.clientId),
+          new KeyValuePair<string, string>("client_id", token.clientId.ToString()),
           new KeyValuePair<string, string>("client_secret", clientSecret),
           new KeyValuePair<string, string>("redirect_uri", token.redirectUri),
           new KeyValuePair<string, string>("grant_type", "authorization_code"),
@@ -163,7 +163,7 @@ namespace Webshop_killerApp_SE2.Controllers
       return openIdConfig;
     }
 
-    private static AccessToken CreateAccessToken(string userId, bool isAdmin)
+    private static AccessToken CreateAccessToken(int userId, bool isAdmin)
     {
       var claims = new List<Claim>();
 
@@ -171,7 +171,7 @@ namespace Webshop_killerApp_SE2.Controllers
         claims.Add(new Claim("roles", "admin"));
 
       claims.Add(new Claim("roles", "user"));
-      claims.Add(new Claim("userid", userId));
+      claims.Add(new Claim("userid", userId.ToString()));
 
       var signing = new SigningCredentials(new SymmetricSecurityKey(new byte[32]), SecurityAlgorithms.HmacSha256);
 
