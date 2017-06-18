@@ -11,28 +11,23 @@ export class CartService {
 
     private cartKey: string = 'cart';
 
-    constructor()
-    {
-        if (this.isStorageSupported())
-            CartService.cart = JSON.parse(window.localStorage.getItem(this.cartKey));
-
-        if (CartService.cart == null)
-            CartService.cart = [];
+    constructor() {
+         CartService.cart = [];
     }
 
-    public async getCart(): Promise<Product[]>
-    {
-        if (this.isStorageSupported())
-            CartService.cart =  JSON.parse(window.localStorage.getItem(this.cartKey));
+    public async getCart(): Promise<Product[]> {
+        if (this.isStorageSupported()) {
+            let cart = JSON.parse(window.localStorage.getItem(this.cartKey));
+            if (cart != null)
+              CartService.cart = cart;
+        }
 
         return CartService.cart;
     }
 
-    public async addProduct(product: Product)
-    {
+    public async addProduct(product: Product) {
         if (product == null)
             return
-
         for (let v of CartService.cart) {
             if (v.id === product.id) {
                 return
@@ -55,8 +50,7 @@ export class CartService {
         }
     }
 
-    private save()
-    {
+    private save() {
         if (this.isStorageSupported())
             window.localStorage.setItem(this.cartKey, JSON.stringify(CartService.cart));
     }
