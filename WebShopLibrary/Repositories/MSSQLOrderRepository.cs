@@ -49,7 +49,7 @@ namespace WebShopLibrary.Repositories
             return orders.AsReadOnly();
         }
 
-        public IReadOnlyCollection<Order> GetOrders(string User, int Skip, int Amount)
+        public IReadOnlyCollection<Order> GetOrders(int User)
         {
             var orders = new List<Order>();
             using (var connection = new SqlConnection(ConnectionString))
@@ -63,12 +63,9 @@ namespace WebShopLibrary.Repositories
                                           ,[DateOrdered]
                                         FROM [dbo].[Orders]
                                         WHERE user = @user
-                                        ORDER BY DateOrdered desc
-                                        OFFSET (@skip) ROWS FETCH NEXT (@take) ROWS ONLY";
+                                        ORDER BY DateOrdered desc";
                 connection.Open();
-
-                command.Parameters.AddWithValue("@skip", Skip);
-                command.Parameters.AddWithValue("@take", Amount);
+                
                 command.Parameters.AddWithValue("@user", User);
 
                 using (SqlDataReader reader = command.ExecuteReader())

@@ -25,5 +25,10 @@ namespace WebShopLibrary.Services
         public IReadOnlyCollection<Product> GetOrderedProduct(int User) =>
             productRepo.GetOrderedProducts(User);
 
+        public IReadOnlyCollection<Order> GetOrders(int User) =>
+           orderRepo.GetOrders(User);
+
+        public IReadOnlyCollection<Product> GetProductByOrder(int Order) =>
+            productRepo.GetProductsByOrder(Order);
     }
 }

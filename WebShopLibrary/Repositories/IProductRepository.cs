@@ -11,6 +11,8 @@ namespace WebShopLibrary.Repositories
         IReadOnlyCollection<Product> GetProducts(int Skip, int Amount);
         Product GetProduct(int ID);
         IReadOnlyCollection<Product> GetProducts(int Category, int Skip, int Amount);
+
+        IReadOnlyCollection<Product> GetProductsByOrder(int Order);
         int CountProducts();
         int CountProductsInCategory(int category);
         IReadOnlyCollection<Review> GetReviews(int product);

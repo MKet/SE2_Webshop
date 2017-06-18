@@ -125,6 +125,32 @@ namespace WebShopLibrary.Repositories
             return products.AsReadOnly();
         }
 
+        public IReadOnlyCollection<Product> GetProductsByOrder(int Order)
+        {
+            var products = new List<Product>();
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"SELECT p.*
+                                    FROM products p
+                                    join orderline ol
+                                    on p.id = ol.product
+                                    join orders o
+                                    on ol.[order] = o.id 
+                                    WHERE o.Id = @order 
+                                    ORDER BY DateOrdered desc";
+                connection.Open();
+                
+                command.Parameters.AddWithValue("@order", Order);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                    while (reader.Read())
+                        products.Add(Convert(reader));
+            }
+            return products.AsReadOnly();
+        }
+
         public IReadOnlyCollection<Review> GetReviews(int product)
         {
             var reviews = new List<Review>();
