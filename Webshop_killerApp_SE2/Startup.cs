@@ -36,6 +36,7 @@ namespace Webshop_killerApp_SE2
     {
       services.AddTransient(x => serviceFactory.CreateCatalogService());
       services.AddTransient(x => serviceFactory.CreateAuthService());
+      services.AddTransient(x => serviceFactory.CreateOrderService());
       // Add framework services.
       services.AddMvc();
       services.AddSwaggerGen(options =>
