@@ -265,5 +265,30 @@ namespace WebShopLibrary.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public IReadOnlyCollection<Product> GetOrderedProducts(int User)
+        {
+            var products = new List<Product>();
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"SELECT p.*
+                                    FROM products p
+                                    join orderline ol
+                                    on p.id = ol.product
+                                    join orders o
+                                    on ol.order = o.id 
+                                    WHERE o.user = @user 
+                                    ORDER BY DateOrdered desc";
+                connection.Open();
+                command.Parameters.AddWithValue("@user", User);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                    while (reader.Read())
+                        products.Add(Convert(reader));
+            }
+            return products.AsReadOnly();
+        }
     }
 }
