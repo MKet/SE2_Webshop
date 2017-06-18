@@ -63,9 +63,31 @@ namespace WebShopLibrary.Repositories
             return null;
         }
 
-        public void Insert(User user, string password)
+        public int Insert(User user, string password)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"INSERT INTO [dbo].[Users]
+                                       ([Username]
+                                       ,[email]
+                                       ,[password]
+                                       ,[isAdmin])
+                                 VALUES
+                                       (@username
+                                       ,@email
+                                       ,@password
+                                       ,@admin)";
+
+                command.Parameters.AddWithValue("@username", user.username);
+                command.Parameters.AddWithValue("@email", user.email);
+                command.Parameters.AddWithValue("@password", password);
+                command.Parameters.AddWithValue("@admin", user.isAdmin);
+
+                connection.Open();
+                return command.ExecuteNonQuery();
+            }
         }
 
         private User Convert(SqlDataReader reader)

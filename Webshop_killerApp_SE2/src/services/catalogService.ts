@@ -11,7 +11,7 @@ export class catalogService {
     }
 
     public async getPage(number: number): Promise<PageResponse> {
-        let response: Response = await this.http.fetch('catalog/products', {
+        let response: Response = await this.http.fetch('/catalog/products', {
             body: json({
                 "Item1": number
             })
@@ -20,7 +20,7 @@ export class catalogService {
     }
 
     public async getPageWithCategory(number: number, category: number): Promise<PageResponse> {
-        let response: Response = await this.http.fetch('catalog/category/products', {
+        let response: Response = await this.http.fetch('/catalog/category/products', {
             body: json({
                 "Item1": number,
                 "Item2": category
@@ -30,12 +30,12 @@ export class catalogService {
     }
 
     public async getTopLevelCategories(): Promise<Category[]> {
-        let response: Response = await this.http.fetch('catalog/categories');
+        let response: Response = await this.http.fetch('/catalog/categories');
         return await response.json();
     }
 
     public async getProduct(Id: number): Promise<Product> {
-        let response: Response = await this.http.fetch('catalog/product', {
+        let response: Response = await this.http.fetch('/catalog/product', {
             body: json({
                 "Item1": Id
             })
@@ -44,7 +44,7 @@ export class catalogService {
     }
 
     public async getReviews(Id: number): Promise<Review[]> {
-        let response: Response = await this.http.fetch('catalog/reviews', {
+        let response: Response = await this.http.fetch('/catalog/reviews', {
             body: json({
                 "Item1": Id
             })
@@ -53,7 +53,7 @@ export class catalogService {
     }
 
     public async postReview(review: Review): Promise<void> {
-        await this.http.fetch('catalog/reviews/post', { body: json(review) });
+        await this.http.fetch('/catalog/reviews/post', { body: json(review) });
     }
 }
 

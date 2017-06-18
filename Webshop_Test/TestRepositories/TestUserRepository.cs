@@ -29,8 +29,12 @@ namespace Webshop_Test.TestRepositories
             throw new NotImplementedException();
         }
 
-        public void Insert(User user, string password) =>
+        public int Insert(User user, string password)
+        {
             list.Add(new UserWithPass(user, password));
+
+            return 1;
+        }
 
         private class UserWithPass
         {

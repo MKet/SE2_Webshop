@@ -63,7 +63,7 @@ export class App {
     configHttp(http): void {
         http.configure(config => {
             config
-                .withBaseUrl('api/')
+                .withBaseUrl('api')
                 .withDefaults({
                     method: "POST",
                     credentials: 'same-origin',
