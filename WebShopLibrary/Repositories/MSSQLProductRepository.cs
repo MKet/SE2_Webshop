@@ -278,8 +278,8 @@ namespace WebShopLibrary.Repositories
                                     join orderline ol
                                     on p.id = ol.product
                                     join orders o
-                                    on ol.order = o.id 
-                                    WHERE o.user = @user 
+                                    on ol.[order] = o.id 
+                                    WHERE o.[user] = @user 
                                     ORDER BY DateOrdered desc";
                 connection.Open();
                 command.Parameters.AddWithValue("@user", User);
