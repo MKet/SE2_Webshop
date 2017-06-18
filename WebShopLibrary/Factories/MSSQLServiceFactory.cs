@@ -8,7 +8,13 @@ namespace WebShopLibrary.Factories
 {
     public class MSSQLServiceFactory : IServiceFactory
     {
-        private string ConnectionString = @"Integrated Security=true; Database=EbookStore; Data Source=MARCO-LAPTOP"; 
+        private string ConnectionString;
+
+        public MSSQLServiceFactory(string connectionString)
+        {
+            ConnectionString = connectionString;
+        }
+
         public CatalogService CreateCatalogService()
         {
             return new CatalogService(new MSSQLProductRepository(ConnectionString), new MSSQLCategoryRepository(ConnectionString), new MSSQLUserRepository(ConnectionString));

@@ -16,7 +16,8 @@ namespace Webshop_killerApp_SE2
 {
   public class Startup
   {
-    private readonly IServiceFactory serviceFactory = new MSSQLServiceFactory();
+    private readonly IServiceFactory serviceFactory;
+
     public Startup(IHostingEnvironment env)
     {
       var builder = new ConfigurationBuilder()
@@ -25,6 +26,7 @@ namespace Webshop_killerApp_SE2
           .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
           .AddEnvironmentVariables();
       Configuration = builder.Build();
+      serviceFactory = new MSSQLServiceFactory(Configuration["ConnectionStrings:WebshopDatabase"]);
     }
 
     public IConfigurationRoot Configuration { get; }
