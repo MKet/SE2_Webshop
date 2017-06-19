@@ -1,0 +1,20 @@
+<template>
+  <require from="../valueConverters/priceValueConverter"></require>
+  <div class="panel panel-default">
+    <div class="panel-heading">Order:</div>
+    <div class="panel-body table-responsive" if.bind="!isEmpty">
+      <table class="table table-striped">
+        <tr repeat.for="item of value">
+          <td>${item.name}</td>
+          <td>${item.price | price}</td>
+          <td>${item.author}</td>
+        </tr>
+      </table>
+      <input type="text" value.bind="discount" />
+      <button class="btn" click.delegate="addOrder()">Order</button>
+    </div>
+    <div if.bind="isEmpty">
+      No products have been ordered yet
+    </div>
+  </div>
+</template>
