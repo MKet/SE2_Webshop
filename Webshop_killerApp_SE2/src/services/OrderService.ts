@@ -11,7 +11,6 @@ export class OrderService {
     }
 
     public async getOrderedProducts(user: number): Promise<Product[]> {
-        alert(user);
         let response: Response = await this.http.fetch('/order/products', {
             body: json({
                 "Item1": user
@@ -21,7 +20,6 @@ export class OrderService {
     }
 
     public async getProductsByOrder(order: number): Promise<Product[]> {
-        alert(user);
         let response: Response = await this.http.fetch('/order/products/order', {
             body: json({
                 "Item1": order
