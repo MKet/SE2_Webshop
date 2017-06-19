@@ -12,7 +12,7 @@
         </tr>
       </table>
       <p>Total price: ${sum | price}</p>
-      <button class="btn">Order</button>
+      <a class="btn" route-href="route: OrderConfirmation">Order</a>
     </div>
     <div if.bind="isEmpty">
       The cart is empty :(
