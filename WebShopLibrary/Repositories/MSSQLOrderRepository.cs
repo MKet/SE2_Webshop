@@ -62,7 +62,7 @@ namespace WebShopLibrary.Repositories
                                           ,[Price]
                                           ,[DateOrdered]
                                         FROM [dbo].[Orders]
-                                        WHERE user = @user
+                                        WHERE [user] = @user
                                         ORDER BY DateOrdered desc";
                 connection.Open();
                 
@@ -97,6 +97,7 @@ namespace WebShopLibrary.Repositories
             return new Order()
             {
                 Id = (int)reader["ID"],
+                User = (int)reader["User"],
                 DiscountCode = reader["Discount"].ToString(),
                 Price = (double)reader["Price"],
                 DateOrdered = (DateTime)reader["DateOrdered"]
