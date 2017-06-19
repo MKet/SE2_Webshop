@@ -1,16 +1,17 @@
 <template>
+  <require from="../valueConverters/priceValueConverter"></require>
   <div class="panel panel-default">
     <div class="panel-heading">Cart:</div>
     <div class="panel-body table-responsive" if.bind="!isEmpty">
       <table class="table table-striped">
         <tr repeat.for="item of value">
           <td>${item.name}</td>
-          <td>&euro;${item.price}</td>
-          <td> ${item.author}</td>
+          <td>${item.price | price}</td>
+          <td>${item.author}</td>
           <td><button class="btn" click.delegate="removeProduct(item)"><span class="glyphicon glyphicon-remove"></span></button></td>
         </tr>
       </table>
-      <p>Total price: &euro;${sum}</p>
+      <p>Total price: ${sum | price}</p>
       <button class="btn">Order</button>
     </div>
     <div if.bind="isEmpty">

@@ -1,6 +1,8 @@
 <template>
+  <require from="../valueConverters/priceValueConverter"></require>
   <div class="panel panel-default product-panel col-md-3">
     <div class="panel-heading"><a route-href="route: product; params.bind: {id:value.id}">${value.name}</a></div>
+    <div>${value.price | price}</div>
     <div class="panel-body product-description">${value.text}</div>
     <img src="${value.image}" class="img-thumbnail" alt="${item.name}" width="304" height="236">
   </div>
