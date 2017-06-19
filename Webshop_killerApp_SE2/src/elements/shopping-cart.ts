@@ -27,13 +27,6 @@ export class ShoppingCart {
     async removeProduct(product: Product) {
         await this.cartService.removeProduct(product.id);
     }
-
-    async orderContents() {
-        // refresh cart just to be sure
-        this.value = await this.cartService.getCart();
-
-
-    }
     
 }
 

@@ -10,6 +10,17 @@ export class OrderService {
     constructor(private http: HttpClient) {
     }
 
+    public async addOrder(user: number, discount: string, products: Product[]) : Promise<boolean> {
+        let response: Response = await this.http.fetch('/order/add', {
+            body: json({
+                "Item1": user,
+                "Item2": discount,
+                "Item3": products
+            })
+        });
+        return response.ok;
+    }
+
     public async getOrderedProducts(user: number): Promise<Product[]> {
         let response: Response = await this.http.fetch('/order/products', {
             body: json({
@@ -29,7 +40,6 @@ export class OrderService {
     }
 
     public async getOrdersByUser(user: number): Promise<Order[]> {
-        alert(user);
         let response: Response = await this.http.fetch('/order/orders', {
             body: json({
                 "Item1": user

@@ -39,7 +39,7 @@ export class CartService {
         this.save();
     }
 
-    public removeProduct(product: number) {
+    public async removeProduct(product: number) {
         for (let v of CartService.cart) {
             if (v.id == product)
             {
@@ -48,6 +48,11 @@ export class CartService {
                 this.save();
             }
         }
+    }
+
+    public async emptyCart() {
+        CartService.cart = [];
+        this.save();
     }
 
     private save() {

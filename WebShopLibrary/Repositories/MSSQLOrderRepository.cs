@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Server;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -64,9 +65,10 @@ namespace WebShopLibrary.Repositories
                                         FROM [dbo].[Orders]
                                         WHERE [user] = @user
                                         ORDER BY DateOrdered desc";
-                connection.Open();
-                
                 command.Parameters.AddWithValue("@user", User);
+
+                connection.Open();
+
 
                 using (SqlDataReader reader = command.ExecuteReader())
                     while (reader.Read())
@@ -85,14 +87,28 @@ namespace WebShopLibrary.Repositories
                 command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.AddWithValue("@UserID", user);
-                command.Parameters.AddWithValue("@discount", discount);
-                command.Parameters.AddWithValue("@list", products);
+                command.Parameters.AddWithValue("@Discount", (object)discount ?? DBNull.Value);
+                var parameter = command.Parameters.AddWithValue("@List", CreateSQLProductList(products));
+                parameter.SqlDbType = SqlDbType.Structured;
+                parameter.TypeName = "[dbo].[ProductList]";
+
+                connection.Open();
 
                 command.ExecuteNonQuery();
             }
         }
 
-        private Order Convert(SqlDataReader reader)
+        private IEnumerable<SqlDataRecord> CreateSQLProductList(IEnumerable<int> products)
+        {
+            foreach (int I in products)
+            {
+                var record = new SqlDataRecord(new SqlMetaData("productID", SqlDbType.Int));
+                record.SetInt32(0, I);
+                yield return record;
+            }
+        }
+
+    private Order Convert(SqlDataReader reader)
         {
             return new Order()
             {

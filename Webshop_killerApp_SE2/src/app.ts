@@ -56,6 +56,7 @@ export class App {
             { title: 'Product', route: 'catalog/product/:id', name: 'product', moduleId: 'components/productDetail' },
             { title: 'My Products', route: 'my-products', name: 'orderedProducts', moduleId: 'components/ordered-products', auth: true },
             { title: 'My Order', route: 'my-order', name: 'MyOrders', moduleId: 'components/orderlist', auth: true },
+            { title: 'Order Confirmation', route: 'order-confirm', name: 'OrderConfirmation', moduleId: 'components/orderconfirmation', auth: true },
             { title: 'Login', route: 'login', name: 'login', moduleId: 'components/login' }
         ]);
         config.addPipelineStep('authorize', AuthorizeStep);
