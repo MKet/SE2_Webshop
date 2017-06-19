@@ -26,5 +26,13 @@ namespace Webshop_killerApp_SE2.Controllers
     [HttpPost("products")]
     public IReadOnlyCollection<Product> GetOrderedProducts([FromBody] Tuple<int> parameters) =>
       orderService.GetOrderedProduct(parameters.Item1);
+
+    [HttpPost("products/order")]
+    public IReadOnlyCollection<Product> GetProductsByOrder([FromBody] Tuple<int> parameters) =>
+      orderService.GetProductByOrder(parameters.Item1);
+
+    [HttpPost("orders")]
+    public IReadOnlyCollection<Order> GetUserOrders([FromBody] Tuple<int> parameters) =>
+      orderService.GetOrders(parameters.Item1);
   }
 }

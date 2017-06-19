@@ -33,6 +33,7 @@ namespace Webshop_killerApp_SE2.Controllers
   public class OpenIdToken
   {
     public int clientId { get; set; }
+    public string clientName { get; set; }
     public string redirectUri { get; set; }
     public string state { get; set; }
     public string code { get; set; }
@@ -61,7 +62,7 @@ namespace Webshop_killerApp_SE2.Controllers
       User user = authService.Login(username, password);
 
       if (user != null) {
-        return Ok(CreateAccessToken(user.Id, user.isAdmin));
+        return Ok(CreateAccessToken(user.Id, user.isAdmin, user.username));
       }
 
       return Unauthorized();
@@ -163,7 +164,7 @@ namespace Webshop_killerApp_SE2.Controllers
       return openIdConfig;
     }
 
-    private static AccessToken CreateAccessToken(int userId, bool isAdmin)
+    private static AccessToken CreateAccessToken(int userId, bool isAdmin, string name)
     {
       var claims = new List<Claim>();
 
@@ -172,6 +173,7 @@ namespace Webshop_killerApp_SE2.Controllers
 
       claims.Add(new Claim("roles", "user"));
       claims.Add(new Claim("userid", userId.ToString()));
+      claims.Add(new Claim("name", name));
 
       var signing = new SigningCredentials(new SymmetricSecurityKey(new byte[32]), SecurityAlgorithms.HmacSha256);
 

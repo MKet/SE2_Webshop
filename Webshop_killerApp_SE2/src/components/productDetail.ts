@@ -23,12 +23,13 @@ export class ProductDetail {
         this.reviews = await this.catalogService.getReviews(params.id);
 
         if (this.auth.isAuthenticated()) {
-
             let userid = jwt_decode(this.auth.getAccessToken()).userid;
-            this.postedReview.user = userid;
+            let name = jwt_decode(this.auth.getAccessToken()).name;
+
+            this.postedReview.user = name;
             this.postedReview.product = params.id;
             for (let item of this.reviews) {
-                if (item.user == userid) {
+                if (item.user == name) {
                     this.postedReview = item;
                     break;
                 }

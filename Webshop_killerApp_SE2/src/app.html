@@ -27,6 +27,9 @@
           <i class="fa fa-spinner fa-spin fa-2x"></i>
         </li>
         <li if.bind="auth.authenticated">
+          <a route-href="route: MyOrders">My Orders</a>
+        </li>
+        <li if.bind="auth.authenticated">
           <a route-href="route: orderedProducts">My Products</a>
         </li>
         <li >

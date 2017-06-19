@@ -1,0 +1,40 @@
+<template>
+  <require from="../valueConverters/priceValueConverter"></require>
+  <div class="container">
+    <div class="row" if.bind="!isOrderEmpty">
+      <div class="panel panel-default col-md-4">
+        <div class="panel-heading">Orders</div>
+        <div class="panel-body table-responsive" >
+          <table class="table table-striped">
+            <tr repeat.for="item of orders">
+              <td>${item.name}</td>
+              <td>&euro;${item.price | price}</td>
+              <td> ${item.author}</td>
+              <td><button click.delegate="selectOrder(item.id)" class="btn ${selectedOrder == item.id ? 'disabled' : ''}">${selectedOrder == item.id ? "selected" : "select"}</button></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="panel panel-default col-md-8">
+        <div class="panel-heading">Ordered products:</div>
+        <div class="panel-body table-responsive">
+          <table class="table table-striped" if.bind="!isProductEmpty">
+            <tr repeat.for="item of products">
+              <td>${item.name}</td>
+              <td>&euro;${item.price | price}</td>
+              <td> ${item.author}</td>
+              <td><button class="btn">Download</button></td>
+            </tr>
+          </table>
+          <button class="btn">Download all</button>
+        </div>
+        <div if.bind="isProductEmpty">
+          Order is enpty
+        </div>
+      </div>
+    </div>
+    <div if.bind="isOrderEmpty">
+      No products have been ordered yet
+    </div>
+  </div>
+</template>

@@ -54,7 +54,8 @@ export class App {
             { title: 'Catalog', route: 'catalog/', name: 'catalog', moduleId: 'components/catalog', nav: true },
             { title: 'Catalog', route: 'catalog/:number', name: 'catalogNum', moduleId: 'components/catalog' },
             { title: 'Product', route: 'catalog/product/:id', name: 'product', moduleId: 'components/productDetail' },
-            { title: 'My Product', route: 'order/products', name: 'orderedProducts', moduleId: 'components/ordered-products', auth: true },
+            { title: 'My Products', route: 'my-products', name: 'orderedProducts', moduleId: 'components/ordered-products', auth: true },
+            { title: 'My Order', route: 'my-order', name: 'MyOrders', moduleId: 'components/orderlist', auth: true },
             { title: 'Login', route: 'login', name: 'login', moduleId: 'components/login' }
         ]);
         config.addPipelineStep('authorize', AuthorizeStep);

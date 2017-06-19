@@ -8,7 +8,7 @@
   <div class="row col-md-12">
       <img if.bind="product.image" src="${product.image}" class="img-thumbnail col-md-4" alt="${product.name}">
       <div class="col-md-8">
-        <div>Price: &euro;${product.price}</div>
+        <div>Price: ${product.price | price}</div>
         <div>Author: ${product.author}</div>
         <button click.delegate="addToCart()" class="btn">Add to cart</button>
       </div>
