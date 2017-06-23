@@ -21,26 +21,26 @@ namespace Webshop_killerApp_SE2.Controllers
 
   public class AccessToken
   {
-    public string access_token { get; set; }
+    public string Access_token { get; set; }
   }
 
   public class UserCredentials
   {
-    public string username { get; set; }
-    public string password { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
   }
 
   public class OpenIdToken
   {
-    public int clientId { get; set; }
-    public string clientName { get; set; }
-    public string redirectUri { get; set; }
-    public string state { get; set; }
-    public string code { get; set; }
-    public string authuser { get; set; }
-    public string session_state { get; set; }
-    public string prompt { get; set; }
-    public string consent { get; set; }
+    public int ClientId { get; set; }
+    public string ClientName { get; set; }
+    public string RedirectUri { get; set; }
+    public string State { get; set; }
+    public string Code { get; set; }
+    public string Authuser { get; set; }
+    public string Session_state { get; set; }
+    public string Prompt { get; set; }
+    public string Consent { get; set; }
   }
 
   [Route("api/[controller]/[action]")]
@@ -56,8 +56,8 @@ namespace Webshop_killerApp_SE2.Controllers
     [HttpPost]
     public IActionResult Login([FromBody] UserCredentials credentials)
     {
-      string username = credentials.username;
-      string password = credentials.password;
+      string username = credentials.Username;
+      string password = credentials.Password;
 
       User user = authService.Login(username, password);
 
@@ -69,9 +69,9 @@ namespace Webshop_killerApp_SE2.Controllers
     }
     
     [HttpPost]
-    public void Register([FromBody]Tuple<User, string> accountInfo)
+    public Tuple<string> Register([FromBody]Tuple<User, string> accountInfo)
     {
-      authService.Register(accountInfo.Item1, accountInfo.Item2);
+       return new Tuple<string>(authService.Register(accountInfo.Item1, accountInfo.Item2));
     }
 
 
@@ -87,10 +87,10 @@ namespace Webshop_killerApp_SE2.Controllers
       {
         var content = new FormUrlEncodedContent(new[]
         {
-          new KeyValuePair<string, string>("code", token.code),
-          new KeyValuePair<string, string>("client_id", token.clientId.ToString()),
+          new KeyValuePair<string, string>("code", token.Code),
+          new KeyValuePair<string, string>("client_id", token.ClientId.ToString()),
           new KeyValuePair<string, string>("client_secret", clientSecret),
-          new KeyValuePair<string, string>("redirect_uri", token.redirectUri),
+          new KeyValuePair<string, string>("redirect_uri", token.RedirectUri),
           new KeyValuePair<string, string>("grant_type", "authorization_code"),
         });
 
@@ -119,12 +119,11 @@ namespace Webshop_killerApp_SE2.Controllers
           ValidateAudience = false,
           ValidateIssuer = false,
         };
-
-      SecurityToken validatedToken;
+      
       JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
       try
       {
-        claims = handler.ValidateToken(authenticationToken, validationParameters, out validatedToken);
+        claims = handler.ValidateToken(authenticationToken, validationParameters, out SecurityToken validatedToken);
       }
       catch (Exception)
       {
@@ -135,9 +134,8 @@ namespace Webshop_killerApp_SE2.Controllers
     private static string GetAuthenticationToken(string resultContent)
     {
       JObject jo = JObject.Parse(resultContent);
-      JToken jt;
       if (!(
-        jo.TryGetValue("authentication_token", out jt) ||
+        jo.TryGetValue("authentication_token", out JToken jt) ||
         jo.TryGetValue("id_token", out jt)))
       {
         throw new Exception();
@@ -187,7 +185,7 @@ namespace Webshop_killerApp_SE2.Controllers
 
 
       string encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-      return new AccessToken { access_token = encodedJwt };
+      return new AccessToken { Access_token = encodedJwt };
     }
   }
 }

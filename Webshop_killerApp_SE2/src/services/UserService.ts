@@ -8,12 +8,15 @@ export class UserService {
     constructor(private http: HttpClient) {
     }
 
-    public async Register(user: User, password: string): Promise<void> {
-        await this.http.fetch('/Auth/Register', {
+    public async Register(user: User, password: string) {
+        let response = await this.http.fetch('/Auth/Register', {
             body: json({
                 "item1": user,
                 "item2": password
             })
         });
+        let message  = await response.json();
+
+        return message.item1;
     }
 }

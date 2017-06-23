@@ -63,6 +63,28 @@ namespace WebShopLibrary.Repositories
             return null;
         }
 
+        public User GetByMail(string mail)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"Select *  
+                                        FROM users 
+                                        where email = @mail";
+
+                command.Parameters.AddWithValue("@mail", mail);
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                    if (reader.Read())
+                    {
+                        return Convert(reader);
+                    }
+            }
+            return null;
+        }
+
         public int Insert(User user, string password)
         {
             using (var connection = new SqlConnection(ConnectionString))
