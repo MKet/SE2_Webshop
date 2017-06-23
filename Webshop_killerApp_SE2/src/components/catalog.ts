@@ -5,8 +5,8 @@ import { Product } from '../entities/Product';
 import { Category } from '../entities/Category';
 
 @autoinject
-export class Catalog {  
-    
+export class Catalog {
+
     products: Product[] = [];
     categories: Category[] = [];
 
@@ -14,18 +14,20 @@ export class Catalog {
     pageAmount: number = 1;
     number: number = 1;
 
+    searchString: string = "";
+
     constructor(private catalogService: catalogService, private cartService: CartService) { }
 
     async attached() {
         this.categories = await this.catalogService.getTopLevelCategories();
     }
 
-    async refreshPage(pageNumber: number) : Promise<void>{
+    async refreshPage(pageNumber: number): Promise<void> {
         let page: PageResponse;
-        if (this.selectedCategory == null) {
+        if (this.searchString == null || this.searchString == "") {
             page = await this.catalogService.getPage(pageNumber);
         } else {
-            page = await this.catalogService.getPageWithCategory(pageNumber, this.selectedCategory);
+            page = await this.catalogService.search(pageNumber, this.searchString);
         }
         this.products = page.item1;
         this.pageAmount = page.item2;
@@ -36,6 +38,10 @@ export class Catalog {
             this.number = params.number;
         else
             this.number = 1;
+        await this.refreshPage(this.number);
+    }
+
+    async search() {
         await this.refreshPage(this.number);
     }
 }

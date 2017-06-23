@@ -3,6 +3,10 @@
   <require from="../elements/shopping-cart"></require>
 
   <div class="col-md-2 sticky-top" >
+    <form>
+      <label for="search">Search</label>
+      <input name="search" type="text" value.bind="searchString" change.delegate="search() & debounce:200"/>
+    </form>
     <shopping-cart></shopping-cart>
   </div>
   <div class="container">

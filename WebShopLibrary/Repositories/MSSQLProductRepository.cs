@@ -17,7 +17,6 @@ namespace WebShopLibrary.Repositories
 
         public int CountProducts()
         {
-            var products = new List<Product>();
             using (var connection = new SqlConnection(ConnectionString))
             using (var command = new SqlCommand())
             {
@@ -123,6 +122,52 @@ namespace WebShopLibrary.Repositories
                         products.Add(Convert(reader));
             }
             return products.AsReadOnly();
+        }
+
+        public IReadOnlyCollection<Product> GetProducts(string search, int Skip, int Amount)
+        {
+            var products = new List<Product>();
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"SELECT *
+                                    FROM products 
+                                    where Name like '%' + @search + '%'
+                                    ORDER BY ID desc
+                                    OFFSET (@skip) ROWS FETCH NEXT (@take) ROWS ONLY";
+                connection.Open();
+
+                command.Parameters.AddWithValue("@skip", Skip);
+                command.Parameters.AddWithValue("@take", Amount);
+                command.Parameters.AddWithValue("@search", search);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                    while (reader.Read())
+                        products.Add(Convert(reader));
+            }
+            return products.AsReadOnly();
+        }
+
+        public int CountProducts(string search)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand())
+            {
+                command.Connection = connection;
+                command.CommandText = @"SELECT count(id) as count
+                                    FROM products
+                                    where Name like '%' + @search + '%'";
+
+                command.Parameters.AddWithValue("@search", search);
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    reader.Read();
+                    return (int)reader["count"];
+                }
+            }
         }
 
         public IReadOnlyCollection<Product> GetProductsByOrder(int Order)
@@ -316,5 +361,6 @@ namespace WebShopLibrary.Repositories
             }
             return products.AsReadOnly();
         }
+        
     }
 }
