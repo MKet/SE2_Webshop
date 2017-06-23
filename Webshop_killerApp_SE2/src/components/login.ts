@@ -24,19 +24,12 @@ export class login {
             "username": this.username,
             "password": this.password
         }).catch(Error => {
-            this.message = Error.response;
+            this.message = "Inloggen mislukt";
         });
     }
 
     async register() {
-        await this.userService.Register(this.newUser, this.newPassword);
-
-        await this.auth.login({
-            "username": this.newUser.username,
-            "password": this.newPassword
-        }).catch(Error => {
-            this.message = Error.response;
-        });
+        this.message = await this.userService.Register(this.newUser, this.newPassword);
     }
 
     async logout() {

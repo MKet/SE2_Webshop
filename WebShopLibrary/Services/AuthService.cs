@@ -19,10 +19,17 @@ namespace WebShopLibrary.Services
         public User Login(string username, string password) =>
             userRepository.Authenthicate(username, password);
 
-        public bool Register(User user, string password)
+        public string Register(User user, string password)
         {
             user.isAdmin = false;
-            return userRepository.Insert(user, password) == 1;
+
+            if (userRepository.GetByName(user.username) != null)
+                return "Deze gebruiker bestaat al";
+            else if (userRepository.GetByMail(user.email) != null)
+                return "Deze mail is al in gebruik";
+
+            userRepository.Insert(user, password);
+            return "Gebruiker toegevoegd";
         }
     }
 }

@@ -11,5 +11,6 @@ namespace WebShopLibrary.Repositories
         User Authenthicate(string user, string password);
 
         User GetByName(string username);
+        User GetByMail(string email);
     }
 }
