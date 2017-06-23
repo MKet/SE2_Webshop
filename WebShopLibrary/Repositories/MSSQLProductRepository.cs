@@ -157,7 +157,7 @@ namespace WebShopLibrary.Repositories
                 command.Connection = connection;
                 command.CommandText = @"SELECT count(id) as count
                                     FROM products
-                                    where Name like %@search%";
+                                    where Name like '%' + @search + '%'";
 
                 command.Parameters.AddWithValue("@search", search);
                 connection.Open();

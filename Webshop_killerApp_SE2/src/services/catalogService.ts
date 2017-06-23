@@ -19,6 +19,16 @@ export class catalogService {
         return await response.json();
     }
 
+    public async search(number: number, search: string): Promise<PageResponse> {
+        let response: Response = await this.http.fetch('/catalog/products/search', {
+            body: json({
+                "Item1": number,
+                "Item2": search
+            })
+        });
+        return await response.json();
+    }
+
     public async getPageWithCategory(number: number, category: number): Promise<PageResponse> {
         let response: Response = await this.http.fetch('/catalog/category/products', {
             body: json({

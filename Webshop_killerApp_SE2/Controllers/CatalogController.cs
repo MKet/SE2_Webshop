@@ -23,10 +23,12 @@ namespace Webshop_killerApp_SE2.Controllers
       => (service.GetPage(parameters.Item1), service.GetPageAmount());
 
     [HttpPost("category/products")]
-    public IReadOnlyCollection<Product> GetPage([FromBody]Tuple<int, int> parameters) => service.GetPage(parameters.Item1, parameters.Item2);
+    public (IReadOnlyCollection<Product> products, int pages) GetPage([FromBody]Tuple<int, int> parameters) => 
+      (service.GetPage(parameters.Item1, parameters.Item2), service.GetPageAmount(parameters.Item2));
     
     [HttpPost("products/search")]
-    public IReadOnlyCollection<Product> GetPage([FromBody]Tuple<int, string> parameters) => service.GetPage(parameters.Item1, parameters.Item2);
+    public (IReadOnlyCollection<Product> products, int pages) GetPage([FromBody]Tuple<int, string> parameters) =>
+      (service.GetPage(parameters.Item1, parameters.Item2), service.GetPageAmount(parameters.Item2));
 
     [HttpPost("categories")]
     public IReadOnlyCollection<Category> GetCategories() => service.GetTopLevelCategories();
