@@ -33,6 +33,12 @@ namespace WebShopLibrary.Services
             return (int)Math.Ceiling(productAmount / pageSize);
         }
 
+        public int GetPageAmount(string search)
+        {
+            double productAmount = productRepository.CountProducts(search);
+            return (int)Math.Ceiling(productAmount / pageSize);
+        }
+
         public IReadOnlyCollection<Category> GetTopLevelCategories() => categoryRepository.GetCategories();
 
         public IReadOnlyCollection<Product> GetPage(int page, int category)
@@ -47,6 +53,13 @@ namespace WebShopLibrary.Services
             if (page < 1)
                 throw new ArgumentException("Value has to be positive", nameof(page));
             return productRepository.GetProducts((page - 1) * pageSize, pageSize);
+        }
+
+        public IReadOnlyCollection<Product> GetPage(int page, string search)
+        {
+            if (page < 1)
+                throw new ArgumentException("Value has to be positive", nameof(page));
+            return productRepository.GetProducts(search, (page - 1) * pageSize, pageSize);
         }
 
         public Product GetProduct(int Id) => 

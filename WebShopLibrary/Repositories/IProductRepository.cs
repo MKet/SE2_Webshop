@@ -15,6 +15,7 @@ namespace WebShopLibrary.Repositories
         IReadOnlyCollection<Product> GetProductsByOrder(int Order);
         int CountProducts();
         int CountProductsInCategory(int category);
+        int CountProducts(string search);
         IReadOnlyCollection<Review> GetReviews(int product);
         void Insert(Review review, int user);
         void Update(Review review, int user);
